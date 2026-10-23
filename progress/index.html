@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8">
+        <title>unidades de formação</title>
+        <meta name="author" content="Rui Pedro Moreira">
+        <script src="jquery.js"></script>
+        <link rel="stylesheet" href="bootstrap.min.css">
+
+</head>
+	
+<body>
+	<ul class="list-group"></ul>
+</body>
+<script src="data.js"></script>
+<script>
+	for (var i = 0; i <= Object.keys(uc).length; i++) {
+		$("ul").append(`
+			<li class="list-group-item">
+			${uc[i].id} ${uc[i].name}
+			</li>
+		`);
+	}
+</script>
+
+</html>

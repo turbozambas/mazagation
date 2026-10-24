@@ -4,11 +4,10 @@ using namespace std;
 
 int main() {
 	cout << "\033[1m7. Preço de três unidades\033[0m\n\n";
+	// Leia um preço de um produto e calcule quanto custam três unidades desse produto--
 
 	double preco;
-
 	cout << "Insira o preço unitário: ";
 	cin >> preco;
-
 	cout << "3 unidades custam: " << preco*3 << "€\n";
 }

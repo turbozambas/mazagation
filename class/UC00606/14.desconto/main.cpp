@@ -4,6 +4,8 @@ using namespace std;
 
 int main() {
 	cout << "\033[1m14. Desconto numa compra\033[0m\n\n";
+	// Leia o nome de um cliente e o valor de uma compra. Aplique 10% de desconto se o valor for igual ou superior a 100€;
+	// caso contrário, não aplique desconto. Apresente o nome, o desconto e o valor final--
 
 	double total = 0, desconto = 0;
 	string cliente;

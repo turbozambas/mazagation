@@ -4,6 +4,7 @@ using namespace std;
 
 int main() {
 	cout << "\033[1m8. Antecessor e sucessor\033[0m\n\n";
+	// Leia um número inteiro e apresente o número anterior e o número seguinte--
 
 	int n;
 

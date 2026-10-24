@@ -4,6 +4,7 @@ using namespace std;
 
 int main() {
 	cout << "\033[1m5. Somar dois números\033[0m\n\n";
+	// Leia dois números inteiros, calcule a sua soma e apresente o resultado--
 
 	int n1, n2;
 

@@ -4,6 +4,13 @@ using namespace std;
 
 int main() {
 	cout << "\033[1m20. Simulação de uma caixa multibanco\033[0m\n\n";
+	// Crie um programa com saldo inicial de 500€. Apresente erpetidamente um menu com as opções:
+	// 1 - Consultar saldo;
+	// 2 - Depositar dinheiro;
+	// 3 - Levantar dinheiro;
+	// 4 - Sair.
+	// Rejeite valores não positivos e levantamentos superiores ao saldo.
+	// Repita o menu até ser escolhida a opção 4--
 
 	int op, saldo = 500, deposito, levantamento;
 
@@ -32,5 +39,5 @@ int main() {
 		} if (op==4) {
 			break;
 		}
-	} while (op>=1 && op<=4);
+	} while (op!=4);
 }

@@ -4,6 +4,9 @@ using namespace std;
 
 int main() {
 	cout << "\033[1m18. Maior e menor número\033[0m\n\n";
+	// Peça a quantidade de números inteiros que o utilizador pretende introduzir.
+	// Leia esse números e apresente o maior e o menor.
+	// Garanta que a quantidade indicada é superior a zero--
 
 	int quantidade, n, maior, menor;
 

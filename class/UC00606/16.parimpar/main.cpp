@@ -4,6 +4,7 @@ using namespace std;
 
 int main() {
 	cout << "\033[1m16. Contagem de números pares e ímpares\033[0m\n\n";
+	// Leia 10 números inteiros utilizando um ciclo. No final, apresente quantos são pares e quantos são impares--
 
 	int n, pares=0, i=1, cont=10;
 

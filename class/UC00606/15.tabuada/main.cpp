@@ -4,6 +4,8 @@ using namespace std;
 
 int main() {
 	cout << "\033[1m15. Tabuada de um número\033[0m\n\n";
+	// Leia um número inteiro entre 1 e 10 e apresente a respetiva tabuada, de 1 a 10, utilizando um ciclo for.
+	// Se o número estiver fora do intervalo, apresente uma mensagem de erro--
 
 	int n;
 

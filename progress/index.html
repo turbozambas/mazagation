@@ -5,22 +5,33 @@
         <title>unidades de formação</title>
         <meta name="author" content="Rui Pedro Moreira">
         <script src="jquery.js"></script>
+        <link rel="stylesheet" href="bootstrap-reboot.min.css">
         <link rel="stylesheet" href="bootstrap.min.css">
 
 </head>
 	
 <body>
-	<ul class="list-group"></ul>
+	<content>
+		<ul class="list-group"></ul>
+	</content>
 </body>
 <script src="data.js"></script>
 <script>
-	for (var i = 0; i <= Object.keys(uc).length; i++) {
+	for (let i = 0; i < Object.keys(uc).length; i++) {
+		let id = uc[i].id;
+		let name = uc[i].name;
+		let totalHours = uc[i].hours.total;
+		let completeHours = uc[i].hours.complete;
+		let percentage = completeHours/totalHours*100;
 		$("ul").append(`
 			<li class="list-group-item">
-			${uc[i].id} ${uc[i].name}
+				${id} ${completeHours}/${totalHours}h ${percentage}%
+				<div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: 1px">
+					<div class="progress-bar" style="width: ${percentage}%"></div>
+				</div>
+
 			</li>
 		`);
 	}
 </script>
-
 </html>

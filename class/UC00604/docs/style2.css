@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+
+/* Cabeçalho */
+
+header {
+    background-color: #0077cc;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+
+/* Menu */
+
+nav {
+    background-color: #2196f3;
+
+    display: flex;
+    justify-content: center;
+
+    gap: 20px;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+
+/* Conteúdo principal */
+
+.conteudo {
+    width: 80%;
+    max-width: 800px;
+
+    margin: 20px auto;
+    padding: 20px;
+
+    background-color: white;
+    border: 1px solid #999999;
+}
+
+
+/* Títulos */
+
+h2 {
+    color: #004080;
+}
+
+
+/* Zona das três caixas */
+
+.caixas {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+
+/* Cada caixa */
+
+.caixa {
+    width: 30%;
+
+    padding: 15px;
+
+    border: 1px solid #999999;
+}
+
+.caixa h3 {
+    color: #004080;
+}

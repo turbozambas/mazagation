@@ -1,12 +1,36 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color:#F4F4F4;
-    color: #014DA1;
+html, body, header, nav, h1, h2, h3, p {
+    padding:0;
     margin:0;
 }
 
-header,nav,h1,h2,h3 {
-    padding:0;
+body {
+    font-family: Arial, sans-serif;
+    background-color:#F4F4F4;
+}
+
+.caixas {
+    display:flex;
+    gap:20px;
+    color:#2E81DF;
+    justify-content: center;
+    overflow:hidden;
+}
+
+.caixa {
+    flex:1;
+    padding:20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius:5px;
+    margin-top:1em;
+}
+
+.conteudo p, h2 {
+    color:#014DA1;
+}
+
+.caixa p {
+    color: #000;
 }
 
 header {
@@ -21,43 +45,28 @@ nav {
     background-color: #2E81DF;
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-left:2em;
+    padding-right:2em;
+    margin-bottom:1em;
+}
+
+.conteudo {
+    width: 80%;
+    max-width:800px;
+    margin: 20px auto;
+    padding:20px;
+    border: 1px solid #999999;
 }
 
 a {
     text-decoration: none;
     color:#fff;
     padding-right:1em;
-}
 
-section, nav {
-    padding-left:2em;
-    padding-right:2em;
-    margin-bottom:1em;
-}
-
-div {
-    float: left;
-    display: block;
-    overflow: hidden;
-    border: solid 1px #CCC;
-    min-width: 200px;
-    width: 4em;
-    margin-right:1em;
-    padding:1em;
-    border-radius: 4px;
-}
-
-div:last-child {
-    margin-right: 0;
 }
 
 h1, h2, h3 {
     margin-top: 2px;
     margin-bottom: 2px;
     font-weight: bold;
-}
-
-p {
-    margin-top: 0;
-    color: #000;
 }

@@ -35,9 +35,8 @@ int main()
     while (range[0]>=range[1] || numeros<=0) init();
 
     // primeiro ciclo - popular o array
-    for (int i = 0; i < numeros; i++) {
-        n[i] = randomNumber(range[0],range[1]);
-    }
+    for (int i=0; i<numeros; i++) n[i] = randomNumber(range[0],range[1]);
+
     // mais variaveis locais
     double media, soma=0;
     string mensagemNegativos="Não", mensagemPrimos="Não";
@@ -57,11 +56,11 @@ int main()
     // cálculo da média dos números
     media = soma/numeros;
 
-    // segundo ciclo - maiores e primos
+    // terceiro ciclo - maiores e primos
     for (int i=0; i<numeros; i++) {
-        primos=true;
         if (n[i]>media) maiores++; // maiores
-        
+
+        primos=true; // primos reset
         if (n[i]>=2) {
             for (int j=2; j<=sqrt(n[i]+1); j++) { // raiz de n não funciona visto que a raiz de 3 é menor que 2 e o ciclo avaria, daí o sqrt(n+1)-- A dica do PJ faz todo sentido!
                 if (n[i]%j==0) { // basta encontrar um resto zero para concluir que o número não é primo

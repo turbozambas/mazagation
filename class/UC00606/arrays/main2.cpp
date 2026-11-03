@@ -1,26 +1,64 @@
 #include <stdio.h>
 #include <iostream>
 #include <math.h>
+#include <random>
 using namespace std;
+
+// inicializar variaveis globais
+int numeros, range[2];
+
+// RNG (cppreference.com/cpp/numeric/random/uniform_int_distribution)
+int randomNumber(int x, int y) {
+    static random_device rd;
+    static mt19937 gen(rd());
+    static uniform_int_distribution<int> dist(x, y);
+    return dist(gen);
+}
+
+// função inicial para inputs
+void init() {
+    cout << "Quantos números pretende gerar? ";
+    cin >> numeros;
+    cout << "Gerar de (min.): ";
+    cin >> range[0];
+    cout << "Gerar a (max.): ";
+    cin >> range[1];
+}
 
 int main()
 {
-    // inicializar vars
-    int n[10]={4,7,0,1,14,16,99,100,29,12}, maiores=0, nmensagemNegativos=0, nPrimos=0, soma=0, media;
-    string mensagemNegativos, mensagemPrimos;
+    // inicializar variaveis locais
+    init();
+    int n[numeros], maiores=0, contadorNegativos=0, contadorPrimos=0;
+
+    // certificar que o input é válido
+    while (range[0]>=range[1] || numeros<=0) init();
+
+    // primeiro ciclo - popular o array
+    for (int i = 0; i < numeros; i++) {
+        n[i] = randomNumber(range[0],range[1]);
+    }
+    // mais variaveis locais
+    double media, soma=0;
+    string mensagemNegativos="Não", mensagemPrimos="Não";
     bool primos=true;
 
-    // ciclo
-    for (int i=0; i<10; i++) {
+    // segundo ciclo - listar os números do array enquanto calcula a soma
+    cout << "--------------------";
+    cout << "\n" << numeros << " números gerados (" << range[0] << ":" << range[1] << ")\n";
+    for (int i=0; i<numeros; i++) {
+        if (i<numeros-1) cout << n[i] << ", ";
+        else cout << n[i] << ".";
         soma+=n[i]; // soma
-        if (n[i]<0) nmensagemNegativos++; // mensagemNegativos
+        if (n[i]<0) contadorNegativos++; // contador de negativos
     }
+    cout << "\n--------------------";
     
     // cálculo da média dos números
-    media = soma/10;
+    media = soma/numeros;
 
-    // maiores e primos
-    for (int i=0; i<10; i++) {
+    // segundo ciclo - maiores e primos
+    for (int i=0; i<numeros; i++) {
         primos=true;
         if (n[i]>media) maiores++; // maiores
         
@@ -31,18 +69,14 @@ int main()
                     break;
                 }
             }
-        } else { // qualquer número inferior a 2 não é primo
-            primos = false;
-        }
-        if (primos) nPrimos++;
+        } else primos = false; // qualquer número inferior a 2 não é primo
+        if (primos) contadorPrimos++;
     }
     
-    // apresentação dos resultados
-    if (nmensagemNegativos>0) mensagemNegativos="Sim";
-    else mensagemNegativos="Não";
-    if (nPrimos>0) mensagemPrimos="Sim";
-    else mensagemPrimos="Não";
-
-    cout << "Soma: " << soma << "\nMédia: " << media << "\nMaiores que a média: " << maiores << "\nNegativos? " << mensagemNegativos << ": " << nmensagemNegativos << "\nPrimos: " << mensagemPrimos << "\n";
+    // apresentar os resultados
+    if (contadorNegativos>0) mensagemNegativos="Sim";
+    if (contadorPrimos>0) mensagemPrimos="Sim";
+    cout << "\nSoma: " << soma << "\nMédia: " << media << "\nMaiores que a média: " << maiores;
+    cout << "\nNegativos? " << mensagemNegativos << ": " << contadorNegativos << "\nPrimos? " << mensagemPrimos << ": " << contadorPrimos << "\n";
     return 0;
 }

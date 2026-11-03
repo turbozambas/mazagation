@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 
+// Funções das diferentes opções
 int somar(int x, int y) {
 	return x+y;
 }
@@ -40,10 +41,12 @@ int main() {
 	// - Ao selecionar T, apresente uma mensagem de despedida e termine o programa.
 	// - Não utilize arrays nem matrizes--
 
+	// iniciar as variaveis necessárias, como manda a lei.
 	char op;
 	int n1,n2,n;
 
-	do {
+	// ciclo enquanto o keystroke for diferente a 'T' - Terminar Programa; Apresenta sempre o menu principal após cada operação
+	do { // Apresenta o menu principal
 		cout << "A - Somar dois números inteiros\n";
 		cout << "B - Subtrair dois números inteiros\n";
 		cout << "C - Multiplicar dois números inteiros\n";
@@ -51,6 +54,7 @@ int main() {
 		cout << "T - Terminar o programa\n";
 		cin >> op;
 
+		// Opção escolhida
 		switch(op) {
 			case 'a':
 			case 'A':

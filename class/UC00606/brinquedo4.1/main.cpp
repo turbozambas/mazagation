@@ -4,41 +4,39 @@
 using namespace std;
 
 int main() {
-	srand(time(NULL));
-	int tabuleiro[5], r=rand() % 5, tentativas=1, tentativa;
+	srand(time(NULL)); // Random Number Generator
+
+	// Declaração de variaveis locais
+	int tabuleiro[5], r=rand() % 5, contTentativas=1, tentativa;
 	bool win=false;
 
+	// Esconder o tesouro...
 	for (int i=0;i<5;i++) {
-		if (i==r) { tabuleiro[i]=7; }
+		if (i==r) { tabuleiro[i]=7; } // ...algures onde o i coincidir com o número anteriormente gerado
 		else { tabuleiro[i]=0; }
 	}
 
-	do {
-		cout << "Adivinha a posição da bomba: ";
+	do { // Ciclo que termina após vitória ou 3 tentativas erradas
+		cout << "Encontre o tesouro (0-4): ";
 		cin >> tentativa;
-		if (tentativa>=0 && tentativa<=4) {
-			if (tentativas==3 && tentativa!=r) {
-				cout << "YOU LOSE. GAME OVER!\n";
+		if (tentativa>=0 && tentativa<=4) { // Caso seja jogada válida...
+			if (contTentativas==3 && tentativa!=r) { // ...caso seja a última tentativa errada
+				cout << "YOU LOSE.\n";
 				break;
 			}
-			if (tentativa==r) {
-				cout << "YOU WIN. GAME OVER!\n";
+			if (tentativa==r) { // ...caso seja tentativa certa
+				cout << "YOU WIN!\n";
 				win=true;
 				break;
-			} else {
-				cout << "TRY AGAIN...\n";
-			}
-			tentativas++;
-		} else { cout << "INVALID MOVE!\n"; }
-	} while (tentativas<=3 || tentativa!=r);
+			} else cout << "TRY AGAIN...\n";
+			contTentativas++;
+		} else cout << "INVALID MOVE!\n"; // jogadas inválidas não contam como tentativas
+	} while (contTentativas<=3 || tentativa!=r || win==false);
 
-	if (win==false) {
-		cout << "SOLUTION: | ";
-		for (int i=0;i<5;i++) {
-			cout << tabuleiro[i] << " | ";
-		}
-		cout << "\n";
-	}
+	// Mostra a solução no fim de cada jogo
+	cout << "SOLUTION: | ";
+	for (int i=0;i<5;i++) cout << tabuleiro[i] << " | ";
+	cout << "\nGAME OVER, BYE BYE NOW!\n";
 
 	return 0;
 }

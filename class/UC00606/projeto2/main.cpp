@@ -2,9 +2,11 @@
 #include <string>
 using namespace std;
 
+// variaveis globais para facilitar um pouco a vida, vá...
 double preco=0;
 int entrada, saida, totalEntradas=0, totalSaidas=0;
 
+// Funções de definição de preço e registo de stock
 double definirPreco(double p) {
 	if (p>0) preco=p;
 	return preco;
@@ -61,11 +63,12 @@ int main() {
 	// - Aceite letras maiúsculas e minúsculas e apresente uma mensagem para opções inválidas.
 	// - Utilize variáveis simples e acumuladoras; não utilize arrays, matrizes nem ficheiros.
 
+	// Declaração das variaveis locais
 	char op;
 	double p;
 	int in, out;
 	
-	do {
+	do { // Ciclo com menu principal
 		cout << "A - Definir preço unitário\n";
 		cout << "B - Registar entrada de unidades\n";
 		cout << "C - Registar saída de unidades\n";
@@ -76,6 +79,7 @@ int main() {
 		cout << "T - Terminar programa\n";
 		cin >> op;
 
+		// Opções de escolha
 		switch(op) {
 			case 'a':
 			case 'A':

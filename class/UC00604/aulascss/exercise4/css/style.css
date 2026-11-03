@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    height: 200px;
+    border: 2px solid #333;
+    background-color: #f0f0f0;
+    justify-content: center;
+    align-items: center;
+}
+
+.cartao {
+    padding: 20px 30px;
+    border: 1px solid #333;
+    font-weight: bold;
+
+}

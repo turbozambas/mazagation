@@ -43,7 +43,8 @@ void askPlayerMove() {
 }
 
 void victory() {
-    cout << "\033[1m" << tags[p] << " wins!\033[0m\n";
+    printBoard();
+    cout << "\n\033[1m" << tags[p] << " wins!\033[0m\n";
     w=true;
 }
 
@@ -98,6 +99,5 @@ int main() {
         askPlayerMove();
         checkWinConditions();
     } while (t<10 && !w); // only 9 turns to play!
-    printBoard();
     return 0;
 }

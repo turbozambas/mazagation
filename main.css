@@ -12,7 +12,6 @@ li { padding: 1px 4px; }
 	display: inline-block;
 	width: 100%;
 }
-
 p {
 	display: block;
 	overflow: hidden;
@@ -20,10 +19,19 @@ p {
 }
 .details p { float: left; }
 .details p:last-child { float: right; }
+
 h1 { font-size: 20px; }
-span {;
-	width: 50px;
+
+.badge {
 	border-radius: 6px;
 	padding: 2px;
-	font-size: 16px;
+	font-size: 15px;
+}
+
+.uc { width: 80px; }
+.percentage { width: 50px; }
+
+footer {
+	margin-top: 6px;
+	font-size: 12px;
 }

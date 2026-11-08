@@ -244,6 +244,6 @@ const inst = {
 	},
 	"6": {
 		"id": "for0666",
-		"name": "john doe"	
+		"name": ""	
 	}
 };

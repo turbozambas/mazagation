@@ -22,22 +22,22 @@
 
 <script src="data.js"></script>
 <script>
-	for (let i = 0; i < Object.keys(uc).length; i++) {
-		let id = uc[i].id;
-		let name = uc[i].name;
-		let totalHours = uc[i].hours.total;
-		let completeHours = uc[i].hours.complete;
-		let percentage = completeHours/totalHours*100;
+	for (let i=0;i<Object.keys(uc).length;i++) {
+		let id=uc[i].id;
+		let name=uc[i].name;
+		let totalHours=uc[i].hours.total;
+		let completeHours=uc[i].hours.complete;
+		let percentage=completeHours/totalHours*100;
 		let theme;
-		let instructorID = uc[i].instructor;
-		let instructor = inst[instructorID].name;
+		let instructorID=uc[i].instructor;
+		let instructor=inst[instructorID].name;
 		if (percentage==100) theme="success";
 		else if (percentage==0) theme="secondary";
 		else theme="primary";
 
 		$("ul").append(`<li class="list-group-item">
 			<div class="details">
-				<p>${id} - ${instructor}</p><p>${completeHours}/${totalHours}h <span class="badge theme-${theme}">${percentage}%</span></p>
+				<p><span class="badge badge-outline theme-${theme} uc">${id}</span> ${instructor}</p><p>${completeHours}/${totalHours}h <span class="badge theme-${theme} percentage">${percentage}%</span></p>
 			</div>
 			<div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: 1px">
 				<div class="progress-bar bg-${theme}" style="width: ${percentage}%"></div>

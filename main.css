@@ -1,6 +1,4 @@
-body {
-	width: 400px;
-	margin: 0 auto;
+html {
 	justify-content: center;
 	text-align: center;
 }
@@ -20,18 +18,26 @@ p {
 .details p { float: left; }
 .details p:last-child { float: right; }
 
-h1 { font-size: 20px; }
-
 .badge {
 	border-radius: 6px;
 	padding: 2px;
-	font-size: 15px;
 }
 
-.uc { width: 80px; }
-.percentage { width: 50px; }
+footer { margin-top: 6px; }
 
-footer {
-	margin-top: 6px;
-	font-size: 12px;
+@media (max-width: 1024px) {
+	html { width: 100%; }
+	h1 { font-size: 20px; }
+	p { font-size: 1em; }
+	.badge { font-size: 18px; }
+	footer { font-size: 14px; }
+	.percentage { width: 60px; }
+}
+@media (min-width: 1025px) {
+	html { width: 400px; margin: 0 auto; }
+	h1 { font-size: 20px; }
+	.badge { font-size: 15px; }
+	footer { font-size: 12px; }
+	.uc { width: 80px; }
+	.percentage { width: 50px; }
 }

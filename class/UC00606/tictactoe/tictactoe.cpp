@@ -8,6 +8,7 @@ int t=1, o; // turn counter and selected option
 bool p,w=false; // player
 
 void printBoard() {
+    cout << "\n";
     for (int i=0;i<3;i++) {
         for (int j=0;j<3;j++) {
             if (j==2) cout << board[i][j] << "\n";
@@ -17,9 +18,9 @@ void printBoard() {
 }
 
 void setPlayer() {
-    if (t%2==0) p=0; // turn controls which player is next
+    if (t%2==0) p=0; // turn controls who goes next
     else p=1;
-    cout << "\nRound " << t << ": It's \033[1m" << tags[p] << "\033[0m's turn...\n";
+    cout << "\nTurn " << t << ": It's \033[1m" << tags[p] << "\033[0m's turn";
 }
 
 void updateBoard(int y, int x) {
@@ -31,14 +32,14 @@ void move() {
     for (int i=0;i<3;i++) {
         for (int j=0;j<3;j++) {
             char pos = board[i][j]; // gets char from board position
-            if (pos!='X' && pos-'0'==o || pos!='O' && pos-'0'==o) updateBoard(i,j);
+            if ((pos!='X' && pos-'0'==o) || (pos!='O' && pos-'0'==o)) updateBoard(i,j);
         }
     }
 }
 
 void askPlayerMove() {
     // player's move
-    cout << "Your move? ";
+    cout << "Your move?... ";
     cin >> o;
     if (o>0 && o<10) move();
     else cout << "\nnabo!\n";
@@ -82,5 +83,6 @@ int main() {
         askPlayerMove();
         checkWinConditions();
     } while (t<10 && !w); // only 9 turns to play!
+    if (!w) printBoard();
     return 0;
 }

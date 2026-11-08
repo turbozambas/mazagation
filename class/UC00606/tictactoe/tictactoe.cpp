@@ -5,7 +5,7 @@ using namespace std;
 char board[3][3]={{'1','2','3'},{'4','5','6'},{'7','8','9'}}; // board setup
 char tags[2]={'O','X'};
 int t=1, o; // turn counter and selected option
-bool p=0,w=false; // player
+bool p,w=false; // player
 
 void printBoard() {
     for (int i=0;i<3;i++) {
@@ -38,13 +38,16 @@ void move() {
 
 void askPlayerMove() {
     // player's move
+    cout << "Your move? ";
     cin >> o;
     if (o>0 && o<10) move();
+    else cout << "\nnabo!\n";
 }
 
 void victory() {
+    cout << "\n";
     printBoard();
-    cout << "\n\033[1m" << tags[p] << " wins!\033[0m\n";
+    cout << "\n\033[1m*** " << tags[p] << " wins! Congratulations, bye bye! ***\033[0m\n";
     w=true;
 }
 

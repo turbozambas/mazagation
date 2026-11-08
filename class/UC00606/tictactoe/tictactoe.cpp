@@ -46,7 +46,6 @@ void askPlayerMove() {
 }
 
 void victory() {
-    cout << "\n";
     printBoard();
     cout << "\n\033[1m*** " << tags[p] << " wins! Congratulations, bye bye! ***\033[0m\n";
     w=true;

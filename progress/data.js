@@ -5,7 +5,8 @@ const uc = {
 		"hours": {
 			"complete": 0,
 			"total": 25
-		}
+		},
+		"instructor": 5
 	},
 	"1": {
 		"id": "UC00597",
@@ -22,13 +23,14 @@ const uc = {
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	},
 	"3": {
 		"id": "UC00599",
 		"name": "INTERAGIR EM INGLÊS NAS ATIVIDADES DO SETOR DA INFORMÁTICA",
 		"hours": {
-			"complete": 3,
+			"complete": 10,
 			"total": 50
 		},
 		"instructor": 4
@@ -37,7 +39,7 @@ const uc = {
 		"id": "UC00600",
 		"name": "ANALISAR AS FUNÇÕES E ESTRUTURA DA ORGANIZAÇÃO",
 		"hours": {
-			"complete": 3,
+			"complete": 10,
 			"total": 25
 		},
 		"instructor": 3
@@ -48,7 +50,8 @@ const uc = {
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	},
 	"6": {
 		"id": "UC00602",
@@ -56,7 +59,8 @@ const uc = {
 		"hours": {
 			"complete": 0,
 			"total": 25
-		}
+		},
+		"instructor": 6
 	},
 	"7": {
 		"id": "UC00603",
@@ -64,13 +68,14 @@ const uc = {
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 2
 	},
 	"8": {
 		"id": "UC00604",
 		"name": "PROGRAMAR PARA A WEB, NA VERTENTE FRONTEND (CLIENT-SIDE)",
 		"hours": {
-			"complete": 16,
+			"complete": 43,
 			"total": 50
 		},
 		"instructor": 2
@@ -81,13 +86,14 @@ const uc = {
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	},
 	"10": {
 		"id": "UC00606",
 		"name": "DESENVOLVER PROGRAMAS EM LINGUAGEM ESTRUTURADA",
 		"hours": {
-			"complete": 22,
+			"complete": 35,
 			"total": 50
 		},
 		"instructor": 1
@@ -98,103 +104,116 @@ const uc = {
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 1
 	},
-	"11": {
+	"12": {
 		"id": "UC00608",
 		"name": "DESENVOLVER PROGRAMAS EM LINGUAGEM ORIENTADA A OBJETOS",
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	},
-	"12": {
+	"13": {
 		"id": "UC00609",
 		"name": "DESENVOLVER APLICAÇÕES MÓVEIS (PLATAFORMA ANDROID)",
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	},
-	"13": {
+	"14": {
 		"id": "UC00610",
 		"name": "CRIAR E INTEGRAR BASES DE DADOS NOSQL NAS APPS",
 		"hours": {
 			"complete": 0,
 			"total": 25
-		}
+		},
+		"instructor": 6
 	},
-	"14": {
+	"15": {
 		"id": "UC00611",
 		"name": "CONFIGURAR REDES DE COMUNICAÇÃO DE DADOS",
 		"hours": {
 			"complete": 0,
 			"total": 25
-		}
+		},
+		"instructor": 6
 	},
-	"15": {
+	"16": {
 		"id": "UC00612",
 		"name": "ADMINISTRAR SISTEMAS OPERATIVOS DE REDES",
 		"hours": {
 			"complete": 0,
 			"total": 25
-		}
+		},
+		"instructor": 6
 	},
-	"16": {
+	"17": {
 		"id": "UC00613",
 		"name": "GERIR POLÍTICAS DE SEGURANÇA EM SISTEMAS INFORMÁTICOS",
 		"hours": {
 			"complete": 0,
 			"total": 25
-		}
+		},
+		"instructor": 6
 	},
-	"17": {
+	"18": {
 		"id": "UC00614",
 		"name": "INTEGRAR SISTEMAS DE INFORMAÇÃO",
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	},
-	"18": {
+	"19": {
 		"id": "UC00615",
 		"name": "DESENVOLVER PROJETO DE TECNOLOGIAS E PROGRAMAÇÃO DE SISTEMAS DE INFORMAÇÃO",
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	},
-	"19": {
+	"20": {
 		"id": "UC00616",
 		"name": "IMPLEMENTAR AS NORMAS DE SEGURANÇA E SAÚDE NO TRABALHO NO SETOR DE INFORMÁTICA",
 		"hours": {
 			"complete": 0,
 			"total": 25
-		}
+		},
+		"instructor": 6
 	},
-	"20": {
+	"21": {
 		"id": "UC00618",
 		"name": "CRIAR APLICAÇÕES EM LINGUAGEM DE PROGRAMAÇÃO PYTHON",
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	},
-	"21": {
+	"22": {
 		"id": "UC00619",
 		"name": "DESENVOLVER APLICAÇÕES EM LINGUAGEM JAVA",
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	},
-	"22": {
+	"23": {
 		"id": "UC00620",
 		"name": "DESENVOLVER APLICAÇÕES EM C#",
 		"hours": {
 			"complete": 0,
 			"total": 50
-		}
+		},
+		"instructor": 6
 	}
 };
 
@@ -218,5 +237,13 @@ const inst = {
 	"4": {
 		"id": "for1485",
 		"name": "Cristina Silva"
+	},
+	"5": {
+		"id": "for0920",
+		"name": "Rui Boticas"	
+	},
+	"6": {
+		"id": "for0666",
+		"name": "john doe"	
 	}
 };

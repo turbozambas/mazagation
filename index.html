@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang='en' class='notranslate' translate='no'>
 <head>
-        <meta charset="utf-8">
-        <title>unidades de formação</title>
-        <meta name="author" content="Rui Pedro Moreira">
-        <script src="jquery.js"></script>
-        <link rel="stylesheet" href="bootstrap-reboot.min.css">
-        <link rel="stylesheet" href="bootstrap.min.css">
-	<link rel="stylesheet" href="main.css">
+<meta charset="utf-8">
+<title>TETPSI - Unidades de Formação</title>
+<meta name="author" content="Rui Pedro Moreira">
+<script src="jquery.js"></script>
+<link rel="stylesheet" href="bootstrap-reboot.min.css">
+<link rel="stylesheet" href="bootstrap.min.css">
+<link rel="stylesheet" href="main.css">
 </head>
-	
+
 <body>
 	<content>
+		<h1>TETPSI - Unidades de Formação</h1>
 		<ul class="list-group"></ul>
 	</content>
+	<footer>
+		<p>last update: Nov 8th 26</p>
+	</footer>
 </body>
 
-<footer>
-	<p>last update: Nov 8th 26</p>
-</footer>
 <script src="data.js"></script>
 <script>
 	for (let i = 0; i < Object.keys(uc).length; i++) {
@@ -27,19 +28,20 @@
 		let totalHours = uc[i].hours.total;
 		let completeHours = uc[i].hours.complete;
 		let percentage = completeHours/totalHours*100;
-
+		let theme;
 		let instructorID = uc[i].instructor;
 		let instructor = inst[instructorID].name;
-		console.log(instructor);
+		if (percentage==100) theme="success";
+		else if (percentage==0) theme="secondary";
+		else theme="primary";
 
-		$("ul").append(`
-			<li class="list-group-item">
-				<div class="details">
-					<p>${id} - ${instructor}</p><p>${completeHours}/${totalHours}h ${percentage}%</p>
-				</div>
-				<div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: 1px">
-					<div class="progress-bar" style="width: ${percentage}%"></div>
-				</div>
+		$("ul").append(`<li class="list-group-item">
+			<div class="details">
+				<p>${id} - ${instructor}</p><p>${completeHours}/${totalHours}h <span class="badge theme-${theme}">${percentage}%</span></p>
+			</div>
+			<div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: 1px">
+				<div class="progress-bar bg-${theme}" style="width: ${percentage}%"></div>
+			</div>
 
 			</li>
 		`);

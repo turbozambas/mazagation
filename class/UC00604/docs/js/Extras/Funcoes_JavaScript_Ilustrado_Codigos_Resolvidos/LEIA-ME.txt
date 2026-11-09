@@ -1,0 +1,27 @@
+FUNÇÕES EM JAVASCRIPT — CÓDIGOS RESOLVIDOS
+
+Estes exemplos correspondem ao Manual de Funções em JavaScript — Versão Ilustrada.
+Cada pasta tem index.html e script.js, que devem permanecer juntos.
+
+COMO EXPERIMENTAR
+1. Abre uma pasta no Visual Studio Code.
+2. Abre index.html no navegador.
+3. Nos exercícios 01–07 e 09–12, prime F12 e abre o separador Consola.
+4. No exercício 08, preenche os dois campos e clica em Somar.
+5. Altera os valores e experimenta novamente.
+
+ORDEM PEDAGÓGICA
+01 — Criar e chamar uma função
+02 — Chamar a mesma função três vezes
+03 — Enviar um nome como parâmetro
+04 — Somar dois números com console.log
+05 — Somar e devolver um valor com return
+06 — Reutilizar valores devolvidos
+07 — Verificar maioridade com if/else
+08 — Ligar JavaScript a campos e botão HTML
+09 — Exercício autónomo: mensagem
+10 — Exercício autónomo: mostrar nome
+11 — Exercício autónomo: multiplicar
+12 — Exercício autónomo: quadrado
+
+Nota: Os exercícios de consola não apresentam o resultado diretamente na página; isto é intencional e segue o manual.

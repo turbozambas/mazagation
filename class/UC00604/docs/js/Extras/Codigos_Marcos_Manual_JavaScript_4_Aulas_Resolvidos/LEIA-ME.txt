@@ -1,0 +1,6 @@
+CÓDIGOS RESOLVIDOS — MANUAL JAVASCRIPT PASSO A PASSO (4 AULAS)
+
+Cada pasta contém index.html e script.js. Abra index.html no navegador.
+As pastas estão organizadas pela ordem do manual, incluindo os exercícios autónomos resolvidos e a ponte para as sessões 43 e 44.
+Os formulários apenas validam os dados no navegador: não enviam nem guardam inscrições.
+Os exemplos são independentes para evitar conflitos de variáveis e permitir a experimentação.

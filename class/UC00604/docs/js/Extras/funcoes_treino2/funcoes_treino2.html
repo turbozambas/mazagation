@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Funções de Treino</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, Arial, sans-serif; margin: 2rem; line-height: 1.5; }
+    h1 { margin-bottom: .25rem; }
+    .sub { margin-top: 0; color: #666; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 1rem; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 14px; }
+    .card h2 { font-size: 1.05rem; margin: 0 0 .5rem 0; }
+    .row { display: grid; gap: 8px; margin: 8px 0; }
+    label { font-weight: 600; font-size: .9rem; }
+    input, button, textarea, select { padding: 8px 10px; border-radius: 8px; border: 1px solid #ccc; font-size: .95rem; }
+    button { cursor: pointer; border: 1px solid #bbb; }
+    .out { background: rgba(125,125,125,.08); padding: 8px; border-radius: 8px; min-height: 2.25em; white-space: pre-wrap; }
+    small.hint { color: #666; font-size: .85rem; }
+    .ok { background: #e9fbe9; border: 1px solid #c7efc7; padding: 10px; border-radius: 10px; margin-top: 16px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <h1>Funções de Treino</h1>
+  <p class="sub">Introduz valores, clica em “Calcular” e vê o resultado (sem <code>console.log</code>).</p>
+
+  <div class="grid">
+    <!-- 1) Dobro -->
+    <section class="card" id="sec-dobro">
+      <h2>1️⃣ Dobro do número</h2>
+      <div class="row">
+        <label for="n-dobro">Número</label>
+        <input id="n-dobro" type="number" step="1" value="4" />
+        <button id="btn-dobro">Calcular</button>
+        <div class="out" id="out-dobro"></div>
+      </div>
+    </section>
+
+    <!-- 2) Maior número -->
+    <section class="card" id="sec-maior">
+      <h2>2️⃣ Maior número</h2>
+      <div class="row">
+        <label>Valores</label>
+        <input id="n-maior-a" type="number" step="any" placeholder="a" value="10" />
+        <input id="n-maior-b" type="number" step="any" placeholder="b" value="7" />
+        <button id="btn-maior">Calcular</button>
+        <div class="out" id="out-maior"></div>
+      </div>
+    </section>
+
+    <!-- 3) Horas para minutos -->
+    <section class="card" id="sec-horas">
+      <h2>3️⃣ Converter horas em minutos</h2>
+      <div class="row">
+        <label for="n-horas">Horas</label>
+        <input id="n-horas" type="number" step="any" value="2" />
+        <button id="btn-horas">Converter</button>
+        <div class="out" id="out-horas"></div>
+      </div>
+    </section>
+
+    <!-- 4) Verificar idade -->
+    <section class="card" id="sec-idade">
+      <h2>4️⃣ Verificar idade</h2>
+      <div class="row">
+        <label for="n-idade">Idade</label>
+        <input id="n-idade" type="number" step="1" value="20" />
+        <button id="btn-idade">Verificar</button>
+        <div class="out" id="out-idade"></div>
+      </div>
+    </section>
+
+    <!-- 5) IMC -->
+    <section class="card" id="sec-imc">
+      <h2>5️⃣ Calcular IMC</h2>
+      <div class="row">
+        <label>Peso (kg) e Altura (m)</label>
+        <input id="n-peso" type="number" step="any" value="70" />
+        <input id="n-altura" type="number" step="any" value="1.75" />
+        <button id="btn-imc">Calcular</button>
+        <div class="out" id="out-imc"></div>
+      </div>
+      <small class="hint">IMC = peso / (altura²)</small>
+    </section>
+
+    <!-- 6) Converter minutos tot. em horas+min -->
+    <section class="card" id="sec-tempo">
+      <h2>6️⃣ Converter minutos em horas e minutos</h2>
+      <div class="row">
+        <label for="n-minutos">Minutos totais</label>
+        <input id="n-minutos" type="number" step="1" value="130" />
+        <button id="btn-tempo">Converter</button>
+        <div class="out" id="out-tempo"></div>
+      </div>
+    </section>
+
+    <!-- 7) Positivo/Negativo/Zero -->
+    <section class="card" id="sec-numero">
+      <h2>7️⃣ Verificar número</h2>
+      <div class="row">
+        <label for="n-verificar">Número</label>
+        <input id="n-verificar" type="number" step="any" value="0" />
+        <button id="btn-numero">Verificar</button>
+        <div class="out" id="out-numero"></div>
+      </div>
+    </section>
+
+    <!-- 8) Tabuada -->
+    <section class="card" id="sec-tabuada">
+      <h2>8️⃣ Tabuada</h2>
+      <div class="row">
+        <label for="n-tabuada">Número</label>
+        <input id="n-tabuada" type="number" step="1" value="3" />
+        <button id="btn-tabuada">Gerar</button>
+        <div class="out mono" id="out-tabuada"></div>
+      </div>
+    </section>
+
+    <!-- 9) Palavra curta/longa -->
+    <section class="card" id="sec-palavra">
+      <h2>9️⃣ Verificar palavra</h2>
+      <div class="row">
+        <label for="txt-palavra">Palavra</label>
+        <input id="txt-palavra" type="text" value="computador" />
+        <button id="btn-palavra">Verificar</button>
+        <div class="out" id="out-palavra"></div>
+      </div>
+    </section>
+
+    <!-- 10) Soma de um array -->
+    <section class="card" id="sec-array">
+      <h2>🔟 Somar array</h2>
+      <div class="row">
+        <label for="txt-array">Números (separados por vírgulas)</label>
+        <input id="txt-array" type="text" value="10, 20, 30, 40" />
+        <button id="btn-array">Somar</button>
+        <div class="out" id="out-array"></div>
+        <small class="hint">Ex.: <span class="mono">2, 4, 6</span> → 12</small>
+      </div>
+    </section>
+  </div>
+
+  <div class="ok">✅ Pronto! Introduz valores e clica nos botões para ver cada resultado.</div>
+
+  <!-- liga o JS (mesma pasta) -->
+  <script src="funcoes_treino2.js"></script>
+</body>
+</html>

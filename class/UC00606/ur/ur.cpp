@@ -77,17 +77,22 @@ void setPlayer() {
 
 bool checkCellIsFree(int p, int y) {
     if (board[paths[player][y][0]][paths[player][y][1]]=='-' || board[paths[player][y][0]][paths[player][y][1]]=='*' || board[paths[player][y][0]][paths[player][y][1]]==tags[player]) return true;
+    //cout << board[paths[player][y][0]][paths[player][y][1]];
     return false;
 }
 
+void listBeads() {
+    cout << "|";
+    for (int i=0;i<7;i++) cout << beads[player][i] << "|";
+    cout << endl;
+}
+
 int move(int r, int o) {
-    cout << "Beads: ";
     if (checkCellIsFree(player, beads[player][o]+r)) {
         board[paths[player][beads[player][o]][0]][paths[player][beads[player][o]][1]]='-';
         beads[player][o]+=r;
         board[paths[player][beads[player][o]][0]][paths[player][beads[player][o]][1]]=tags[player];
-        for (int i=0;i<7;i++) cout << beads[player][i];
-        cout << endl;
+        listBeads();
         turn++;
         return o;
     }
@@ -97,12 +102,14 @@ void askPlayerMove(int r) {
     int n=checkBeads(player);
     cout << "Your move?... ";
     cin >> opt;
+    cout << beads[player][opt]+r << endl;
     if (opt>=0 && opt<=7 && beads[player][opt]+r<16 && checkCellIsFree(player, beads[player][opt]+r)) move(r, opt);
 }
 
 void rollDice() {
     int r=randomNumber(0,4);
     cout << COLOR << BOLD << " * Turn " << turn << " Player " << p << " rolls " << r << RESET << endl;
+    listBeads();
     if (r>0) askPlayerMove(r);
     if (r==0) turn++;
 }

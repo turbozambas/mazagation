@@ -45,11 +45,14 @@ int checkBeads(int p) {
 
 void printBoard() {
     //system("clear");
+
+    // check board for beads and rosettes
     for (int i=0;i<5;i++) {
         if (board[rosettes[i][0]][rosettes[i][1]]=='B' || board[rosettes[i][0]][rosettes[i][1]]=='Y') cout << "";
         else board[rosettes[i][0]][rosettes[i][1]]='*';
     }
     
+    // populate board
     for (int i=0;i<3;i++) {
         for (int j=0;j<8;j++) {
             if (board[i][j]=='B' || board[i][j]=='Y') cout << "";
@@ -63,7 +66,7 @@ void printBoard() {
 }
 
 void setPlayer() {
-    if (turn%2==0) { // let turn decide who plays next
+    if (turn%2==0) { // turn decides who plays next
         player=0;
         p=2; // just so it shows "Player 2" instead of "Player 0"
         COLOR=PLAYER_2;
@@ -89,8 +92,8 @@ void listBeads() {
 
 int move(int r, int o) {
     if (checkCellIsFree(player, beads[player][o]+r)) {
-        board[paths[player][beads[player][o]][0]][paths[player][beads[player][o]][1]]='-';
-        beads[player][o]+=r;
+        board[paths[player][beads[player][o]][0]][paths[player][beads[player][o]][1]]='-'; // clears previous position
+        beads[player][o]+=r; // move bead to new position
         board[paths[player][beads[player][o]][0]][paths[player][beads[player][o]][1]]=tags[player];
         listBeads();
         turn++;
@@ -103,7 +106,7 @@ void askPlayerMove(int r) {
     cout << "Your move?... ";
     cin >> opt;
     cout << beads[player][opt]+r << endl;
-    if (opt>=0 && opt<=7 && beads[player][opt]+r<16 && checkCellIsFree(player, beads[player][opt]+r)) move(r, opt);
+    if (opt>=0 && opt<=7 && beads[player][opt]+r<=16 && checkCellIsFree(player, beads[player][opt]+r)) move(r, opt);
 }
 
 void rollDice() {

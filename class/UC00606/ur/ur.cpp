@@ -173,7 +173,8 @@ void askPlayerMove() {
 }
 
 void rollDice() {
-    rng=randomNumber(0,4);
+    rng=0;
+    for (int i=0;i<4;i++) rng+=randomNumber(0,1);
     rolls[rng]++;
     cout << endl;
     cout << players[player].color << bold << "\tPlayer " << players[player].p << " rolls " << rng << reset;
@@ -209,6 +210,7 @@ int main() {
         sumR+=rolls[i];
         for (int j=0;j<rolls[i];j++) cout << "#";
     }
+    cout << bold << "\n\tT" << reset << "[" << sumR << "]";
     cout << bold << "\n\n\tGAME OVER\n" << endl;
     return 0;
 }

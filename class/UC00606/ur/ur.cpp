@@ -112,7 +112,7 @@ void setPlayer() { // turn decides who plays next
 }
 
 bool checkCellIsFree(int pos) {
-    for (int i=0;i<7;i++) if (players[player].beads[i]==pos || (players[opponent].beads[i]==pos && pos==8)) return false;
+    for (int i=0;i<7;i++) if (players[player].beads[i]==pos && pos!=15 || (players[opponent].beads[i]==pos && pos==8)) return false;
     return true;
 }
 
@@ -133,10 +133,11 @@ int move(int o, int pos) {
 }
 
 void askPlayerMove() {
-    int opt;
-    cout << "\n\tYour move?... ";
+    char opt;
+    cout << "\n\tYour move?... (0-6 or 'P' to pass) ";
     cin >> opt;
-    if (opt>=0 && opt<7 && players[player].beads[opt]+rng<16 && checkCellIsFree(players[player].beads[opt]+rng)) move(opt, players[player].beads[opt]+rng);
+    if (opt=='P' || opt=='p') turn++;
+    else if (opt-'0'>=0 && opt-'0'<7 && players[player].beads[opt-'0']+rng<16 && checkCellIsFree(players[player].beads[opt-'0']+rng)) move(opt-'0', players[player].beads[opt-'0']+rng);
     else {
         errorMsg();
         tryAgain=true;
@@ -157,6 +158,7 @@ void checkWinConditions() {
             if (players[i].beads[j]==15) c++;
         }
         if (c==7) {
+            printBoard();
             cout << bold << "\n\tGAME OVER\n" << endl;
             win=true;
         }

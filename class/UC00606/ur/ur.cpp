@@ -159,7 +159,7 @@ int move(int o, int pos) {
 
 void askPlayerMove() {
     char opt;
-    cout << "\n\t" << bold << players[player].color << "Player " << players[player].p << reset << players[player].color << " move a bead (0-6) by " << bold << rng << reset << players[player].color << " places or pass (P)... " << reset;
+    cout << "\n\t" << bold << players[player].color << "Player " << players[player].p << reset << players[player].color << " move a bead (0-6) by " << bold << rng << reset << players[player].color << " spaces or pass (P)... " << reset;
     cin >> opt;
     if (opt=='P' || opt=='p') {
         turn++;
@@ -175,15 +175,6 @@ void askPlayerMove() {
 void rollDice() {
     rng=randomNumber(0,4);
     rolls[rng]++;
-
-    // print rolls
-    //for (int i=0;i<5;i++) {
-    //    if (i==0) cout << " (" << bold << i << reset << "[" << rolls[i] << "]";
-    //    else cout << " " << bold << i << reset << "[" << rolls[i] << "]";
-    //    sumR+=rolls[i];
-    //}
-    //cout << ")" << endl;
-    //cout << bold << "\n\tRoll #" << sumR << endl;
     cout << endl;
     cout << players[player].color << bold << "\tPlayer " << players[player].p << " rolls " << rng << reset;
     cout << endl;
@@ -211,6 +202,13 @@ int main() {
         checkWinConditions();
     } while (!win);
     printBoard();
-    cout << bold << "\n\tGAME OVER\n" << endl;
+    // print rolls
+    cout << bold << "\n\tRolls:";
+    for (int i=0;i<5;i++) {
+        cout << bold << "\n\t" << i << reset << "[" << rolls[i] << "]";
+        sumR+=rolls[i];
+        for (int j=0;j<rolls[i];j++) cout << "#";
+    }
+    cout << bold << "\n\n\tGAME OVER\n" << endl;
     return 0;
 }

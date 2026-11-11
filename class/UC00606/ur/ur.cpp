@@ -140,7 +140,7 @@ int move(int o, int pos) {
 
 void askPlayerMove() {
     char opt;
-    cout << "\n\tYour move?... (0-6 or 'P' to pass) ";
+    cout << "\n\t" << bold << players[player].color << "Player " << players[player].p << reset << " move a bead (0-6) or pass (P)... ";
     cin >> opt;
     if (opt=='P' || opt=='p') {
         turn++;
@@ -166,11 +166,7 @@ void checkWinConditions() {
         for (int j=0;j<7;j++) {
             if (players[i].beads[j]==15) c++;
         }
-        if (c==7) {
-            printBoard();
-            cout << bold << "\n\tGAME OVER\n" << endl;
-            win=true;
-        }
+        if (c==7) win=true;
     }
 }
 
@@ -183,5 +179,7 @@ int main() {
         else rollDice();
         checkWinConditions();
     } while (!win);
+    printBoard();
+    cout << bold << "\n\tGAME OVER\n" << endl;
     return 0;
 }

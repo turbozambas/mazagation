@@ -5,137 +5,172 @@
 #include <string>
 using namespace std;
 
+int turn=0, rng;
+bool win=false, tryAgain=false;
+string landing;
+
 // player related declarations
-#define PLAYER_1 "\033[38;2;217;164;65m"
-#define PLAYER_2 "\033[38;2;75;165;225m"
-#define RESET "\033[0m"
-#define BOLD "\033[1m"
-string COLOR;
-bool player;
-int startPosition=0,endPosition=15,p;
-int beads[2][7]={{0,0,0,0,0,0,0},{0,0,0,0,0,0,0}};
-char tags[2]={'B','Y'};
+struct Player {
+    string tag;
+    string color;
+    int beads[7], p, paths[16][2];
+};
+Player players[2];
+bool player,opponent;
 
 // board related declarations
-char board[3][8];
+string board[3][8];
 int paths[2][16][2]={
-    {{2,4},{2,3},{2,2},{2,1},{2,0},{1,0},{1,1},{1,2},{1,3},{1,4},{1,5},{1,6},{1,7},{2,7},{2,6},{2,5}},  // player1
-    {{0,4},{0,3},{0,2},{0,1},{0,0},{1,0},{1,1},{1,2},{1,3},{1,4},{1,5},{1,6},{1,7},{0,7},{0,6},{0,5}}   // player2
+    {{2,4},{2,3},{2,2},{2,1},{2,0},{1,0},{1,1},{1,2},{1,3},{1,4},{1,5},{1,6},{1,7},{2,7},{2,6},{2,5}},
+    {{0,4},{0,3},{0,2},{0,1},{0,0},{1,0},{1,1},{1,2},{1,3},{1,4},{1,5},{1,6},{1,7},{0,7},{0,6},{0,5}}
 };
 int rosettes[5][2]={{0,0},{2,0},{1,3},{0,6},{2,6}};
-int rosettesPositions[3]={4,8,14};
-
-// game mechanics related declarations
-int turn=1, opt=0;
-bool win=false;
+string reset="\033[0m", bold="\033[1m";
 
 // RNG (cppreference.com/cpp/numeric/random/uniform_int_distribution)
 int randomNumber(int x, int y) {
     static random_device rd;
     static mt19937 gen(rd());
-    static uniform_int_distribution<int> dist(x, y);
+    uniform_int_distribution<int> dist(x, y);
     return dist(gen);
 }
+void init() {
+    cout << bold << "\n\n\t*** Royal Game of Ur ***" << reset << endl; // hello!
+    // player related initialization
+    players[0].tag='Y';
+    players[1].tag='B';
+    players[0].color="\033[38;2;217;164;65m";
+    players[1].color="\033[38;2;75;165;225m";
+    for (int i=0;i<7;i++) {
+        players[0].beads[i]=14;
+        players[1].beads[i]=0;
+    } 
+    for (int i=0;i<16;i++) {
+        for (int j=0;j<2;j++) {
+            players[0].paths[i][j]=paths[0][i][j];
+            players[1].paths[i][j]=paths[1][i][j];
+        }
+    }   
+    players[0].p=1;
+    players[1].p=2;
+}
 
-int checkBeads(int p) {
+int checkBeads(int y, int z) {
     int c=0; // elderlywomanbehindacounterinasmalltown
-    for (int i=0;i<7;i++) if (beads[player][i]<15) c++;
+    for (int i=0;i<7;i++) if (players[y].beads[i]==z) c++;
     return c;
 }
 
 void printBoard() {
-    //system("clear");
-
-    // check board for beads and rosettes
-    for (int i=0;i<5;i++) {
-        if (board[rosettes[i][0]][rosettes[i][1]]=='B' || board[rosettes[i][0]][rosettes[i][1]]=='Y') cout << "";
-        else board[rosettes[i][0]][rosettes[i][1]]='*';
-    }
-    
-    // populate board
-    for (int i=0;i<3;i++) {
-        for (int j=0;j<8;j++) {
-            if (board[i][j]=='B' || board[i][j]=='Y') cout << "";
-            else if (board[i][j]=='*') board[i][j]='*';
-            else if ((j>=4 && j<=5 && i==0) || (j>=4 && j<=5 && i==2)) board[i][j]=' ';
-            else board[i][j]='-';
-            cout << board[i][j];
+    for (int i=0;i<3;i++) for (int j=0;j<8;j++) board[i][j]="  ";
+    for (int i=0;i<5;i++) board[rosettes[i][0]][rosettes[i][1]]="**";
+    for (int i=0;i<2;i++) for (int j=0;j<7;j++) board[paths[i][players[i].beads[j]][0]][paths[i][players[i].beads[j]][1]]=bold+players[i].color+players[i].tag + to_string(j)+reset;
+    cout << endl;
+    // print board
+    string canvas[7][17] = {
+        {"\t##","##","##","##","##","##","##","##","##",board[0][4],"  ",board[0][5],"##","##","##","##","##"},
+        {"\t##",board[0][0],"##",board[0][1],"##",board[0][2],"##",board[0][3],"##","  ","  ","  ","##",board[0][6],"##",board[0][7],"##"},
+        {"\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"},
+        {"\t##",board[1][0],"##",board[1][1],"##",board[1][2],"##",board[1][3],"##",board[1][4],"##",board[1][5],"##",board[1][6],"##",board[1][7],"##"},
+        {"\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"},
+        {"\t##",board[2][0],"##",board[2][1],"##",board[2][2],"##",board[2][3],"##","  ","  ","  ","##",board[2][6],"##",board[2][7],"##"},
+        {"\t##","##","##","##","##","##","##","##","##",board[2][4],"  ",board[2][5],"##","##","##","##","##"}
+    };
+    for (int i=0;i<7;i++) {
+        for (int j=0;j<17;j++) {
+            cout << canvas[i][j];
         }
         cout << endl;
     }
+    for (int i=0;i<2;i++) {
+        cout << players[i].color << bold << "\n\tPlayer " << players[i].p << ": ";
+        for (int j=0;j<16;j++) {
+            string b[2]={">(",")>"};
+            if (j==0 || j==15) {
+                b[0]=players[i].color+bold+" [ ";
+                b[1]=" ] "+reset;
+                cout << b[0] << checkBeads(i,j) << b[1];
+            } else cout << b[0] << board[players[i].paths[j][0]][players[i].paths[j][1]] << b[1];
+        }
+        cout << "\n";
+    }
 }
 
-void setPlayer() {
-    if (turn%2==0) { // turn decides who plays next
+void errorMsg() {
+    cout << bold << "\n\tThese aren't the droids you're looking for. Move along!\n" << reset;
+}
+
+void setPlayer() { // turn decides who plays next
+    if (turn%2==0) {
         player=0;
-        p=2; // just so it shows "Player 2" instead of "Player 0"
-        COLOR=PLAYER_2;
+        opponent=1;
     }
     else {
         player=1;
-        p=1;
-        COLOR=PLAYER_1;
+        opponent=0;
     }
 }
 
-bool checkCellIsFree(int p, int y) {
-    if (board[paths[player][y][0]][paths[player][y][1]]=='-' || board[paths[player][y][0]][paths[player][y][1]]=='*' || board[paths[player][y][0]][paths[player][y][1]]==tags[player]) return true;
-    //cout << board[paths[player][y][0]][paths[player][y][1]];
-    return false;
+bool checkCellIsFree(int pos) {
+    for (int i=0;i<7;i++) if (players[player].beads[i]==pos || (players[opponent].beads[i]==pos && pos==8)) return false;
+    return true;
 }
 
-void listBeads() {
-    cout << "|";
-    for (int i=0;i<7;i++) cout << beads[player][i] << "|";
-    cout << endl;
+void checkCellIsOpponent(int pos) {
+    for (int i=0;i<7;i++) if (players[opponent].beads[i]==pos && pos>=5 && pos<=12 && pos!=8) players[opponent].beads[i]=0;
 }
 
-int move(int r, int o) {
-    if (checkCellIsFree(player, beads[player][o]+r)) {
-        board[paths[player][beads[player][o]][0]][paths[player][beads[player][o]][1]]='-'; // clears previous position
-        beads[player][o]+=r; // move bead to new position
-        board[paths[player][beads[player][o]][0]][paths[player][beads[player][o]][1]]=tags[player];
-        listBeads();
-        turn++;
-        return o;
-    }
+int move(int o, int pos) {
+    board[players[player].paths[o][0]][players[player].paths[o][1]]="  "; // clears previous position
+    players[player].beads[o]+=rng; // move bead to new position
+    landing=board[players[player].paths[pos][0]][players[player].paths[pos][1]]; // records landing position
+    board[players[player].paths[o][0]][players[player].paths[o][1]]=players[player].tag;
+    tryAgain=false;
+    checkCellIsOpponent(pos);
+    if (landing=="**") return 0;
+    else turn++;
+    return 0;
 }
 
-void askPlayerMove(int r) {
-    int n=checkBeads(player);
-    cout << "Your move?... ";
+void askPlayerMove() {
+    int opt;
+    cout << "\n\tYour move?... ";
     cin >> opt;
-    cout << beads[player][opt]+r << endl;
-    if (opt>=0 && opt<=7 && beads[player][opt]+r<=16 && checkCellIsFree(player, beads[player][opt]+r)) move(r, opt);
+    if (opt>=0 && opt<7 && players[player].beads[opt]+rng<16 && checkCellIsFree(players[player].beads[opt]+rng)) move(opt, players[player].beads[opt]+rng);
+    else {
+        errorMsg();
+        tryAgain=true;
+    }
 }
 
 void rollDice() {
-    int r=randomNumber(0,4);
-    cout << COLOR << BOLD << " * Turn " << turn << " Player " << p << " rolls " << r << RESET << endl;
-    listBeads();
-    if (r>0) askPlayerMove(r);
-    if (r==0) turn++;
+    rng=randomNumber(0,4);
+    cout << players[player].color << bold << "\n\tPlayer " << players[player].p << " rolls " << rng << reset << endl;
+    if (rng>0) askPlayerMove();
+    if (rng==0) turn++;
 }
 
 void checkWinConditions() {
     for (int i=0;i<2;i++) {
         int c=0; // elderlywomanbehindacounterinasmalltown
         for (int j=0;j<7;j++) {
-            if (beads[i][j]==endPosition) c++;
+            if (players[i].beads[j]==15) c++;
         }
         if (c==7) {
-            cout << "we have a winner!" << endl;
+            cout << bold << "\n\tGAME OVER\n" << endl;
             win=true;
         }
     }
 }
 
 int main() {
-    cout << BOLD << "*** Royal Game of Ur ***" << RESET << endl; // hello!
+    init();
     do {
-        printBoard();
         setPlayer();
-        rollDice();
+        printBoard();
+        if (tryAgain) askPlayerMove();
+        else rollDice();
         checkWinConditions();
     } while (!win);
+    return 0;
 }

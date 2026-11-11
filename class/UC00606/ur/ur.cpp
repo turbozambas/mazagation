@@ -7,7 +7,7 @@ using namespace std;
 
 int turn=0, rng;
 bool win=false, tryAgain=false;
-string landing;
+string landing, beadsList;
 
 // player related declarations
 struct Player {
@@ -35,7 +35,9 @@ int randomNumber(int x, int y) {
     return dist(gen);
 }
 void init() {
-    cout << bold << "\n\n\t*** Royal Game of Ur ***" << reset << endl; // hello!
+    cout << "\n\n\t  ##############################" << endl; // hello!
+    cout << "\t  ### " << bold << "** ROYAL GAME OF UR **" << reset << " ###" << endl; // hello!
+    cout << "\t  ##############################"<< endl; // hello!
     // player related initialization
     players[0].tag='Y';
     players[1].tag='B';
@@ -55,16 +57,20 @@ void init() {
     players[1].p=2;
 }
 
-int checkBeads(int y, int z) {
+int checkBeads(int p, int pos) {
     int c=0; // elderlywomanbehindacounterinasmalltown
-    for (int i=0;i<7;i++) if (players[y].beads[i]==z) c++;
+    beadsList="";
+    for (int i=0;i<7;i++) {
+        if (players[p].beads[i]==15) beadsList+=players[p].tag+to_string(i)+" ";
+        if (players[p].beads[i]==pos) c++;
+    }
     return c;
 }
 
 void printBoard() {
     for (int i=0;i<3;i++) for (int j=0;j<8;j++) board[i][j]="  ";
     for (int i=0;i<5;i++) board[rosettes[i][0]][rosettes[i][1]]="**";
-    for (int i=0;i<2;i++) for (int j=0;j<7;j++) board[paths[i][players[i].beads[j]][0]][paths[i][players[i].beads[j]][1]]=bold+players[i].color+players[i].tag + to_string(j)+reset;
+    for (int i=0;i<2;i++) for (int j=0;j<7;j++) board[paths[i][players[i].beads[j]][0]][paths[i][players[i].beads[j]][1]]=bold+players[i].color+players[i].tag+to_string(j)+reset;
     cout << endl;
     // print board
     string canvas[7][17] = {
@@ -92,7 +98,7 @@ void printBoard() {
                 cout << b[0] << checkBeads(i,j) << b[1];
             } else cout << b[0] << board[players[i].paths[j][0]][players[i].paths[j][1]] << b[1];
         }
-        cout << "\n";
+        cout << " " << bold << players[i].color << beadsList << reset << "\n";
     }
 }
 
@@ -112,7 +118,7 @@ void setPlayer() { // turn decides who plays next
 }
 
 bool checkCellIsFree(int pos) {
-    for (int i=0;i<7;i++) if (players[player].beads[i]==pos && pos!=15 || (players[opponent].beads[i]==pos && pos==8)) return false;
+    for (int i=0;i<7;i++) if ((players[player].beads[i]==pos && pos!=15) || (players[opponent].beads[i]==pos && pos==8)) return false;
     return true;
 }
 
@@ -136,7 +142,10 @@ void askPlayerMove() {
     char opt;
     cout << "\n\tYour move?... (0-6 or 'P' to pass) ";
     cin >> opt;
-    if (opt=='P' || opt=='p') turn++;
+    if (opt=='P' || opt=='p') {
+        turn++;
+        tryAgain=false;
+    }
     else if (opt-'0'>=0 && opt-'0'<7 && players[player].beads[opt-'0']+rng<16 && checkCellIsFree(players[player].beads[opt-'0']+rng)) move(opt-'0', players[player].beads[opt-'0']+rng);
     else {
         errorMsg();

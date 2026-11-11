@@ -42,7 +42,7 @@ void init() {
     players[0].color="\033[38;2;217;164;65m";
     players[1].color="\033[38;2;75;165;225m";
     for (int i=0;i<7;i++) {
-        players[0].beads[i]=14;
+        players[0].beads[i]=0;
         players[1].beads[i]=0;
     } 
     for (int i=0;i<16;i++) {

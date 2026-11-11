@@ -25,7 +25,7 @@ int paths[2][16][2]={
     {{0,4},{0,3},{0,2},{0,1},{0,0},{1,0},{1,1},{1,2},{1,3},{1,4},{1,5},{1,6},{1,7},{0,7},{0,6},{0,5}}
 };
 int rosettes[5][2]={{0,0},{2,0},{1,3},{0,6},{2,6}};
-int rolls[5];
+int rolls[5], sumR;
 
 
 // RNG (cppreference.com/cpp/numeric/random/uniform_int_distribution)
@@ -37,6 +37,7 @@ int randomNumber(int x, int y) {
 }
 
 void init() {
+    system("clear");
     cout << "\n\n\t  ##############################" << endl; // hello!
     cout << "\t  ### " << bold << "** ROYAL GAME OF UR **" << reset << " ###" << endl; // hello!
     cout << "\t  ##############################"<< endl; // hello!
@@ -141,7 +142,13 @@ void resetOpponentsBead(int pos) {
 int move(int o, int pos) {
     board[players[player].paths[o][0]][players[player].paths[o][1]]="  "; // clears previous position
     players[player].beads[o]+=rng; // move bead to new position
-    landing=board[players[player].paths[pos][0]][players[player].paths[pos][1]]; // records landing position
+    landing="  ";
+    for (int i=0;i<5;i++) { // records landing position
+        if (players[player].paths[pos][0]==rosettes[i][0] && players[player].paths[pos][1]==rosettes[i][1]) {
+            landing="**";
+            break;
+        }
+    }
     board[players[player].paths[o][0]][players[player].paths[o][1]]=players[player].tag;
     tryAgain=false;
     resetOpponentsBead(pos);
@@ -152,7 +159,7 @@ int move(int o, int pos) {
 
 void askPlayerMove() {
     char opt;
-    cout << "\n\t" << bold << players[player].color << "Player " << players[player].p << reset << players[player].color << " move a bead by " << bold << rng << reset << players[player].color << " (0-6) or pass (P)... " << reset;
+    cout << "\n\t" << bold << players[player].color << "Player " << players[player].p << reset << players[player].color << " move a bead (0-6) by " << bold << rng << reset << players[player].color << " places or pass (P)... " << reset;
     cin >> opt;
     if (opt=='P' || opt=='p') {
         turn++;
@@ -168,10 +175,17 @@ void askPlayerMove() {
 void rollDice() {
     rng=randomNumber(0,4);
     rolls[rng]++;
-    cout << players[player].color << bold << "\n\tPlayer " << players[player].p << " rolls " << rng << reset;
-    for (int i=0;i<5;i++) {
-        cout << " " << i << "(" << rolls[i] << ")";
-    }
+
+    // print rolls
+    //for (int i=0;i<5;i++) {
+    //    if (i==0) cout << " (" << bold << i << reset << "[" << rolls[i] << "]";
+    //    else cout << " " << bold << i << reset << "[" << rolls[i] << "]";
+    //    sumR+=rolls[i];
+    //}
+    //cout << ")" << endl;
+    //cout << bold << "\n\tRoll #" << sumR << endl;
+    cout << endl;
+    cout << players[player].color << bold << "\tPlayer " << players[player].p << " rolls " << rng << reset;
     cout << endl;
     if (rng>0) askPlayerMove();
     if (rng==0) turn++;

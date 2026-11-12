@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; margin: 24px; }
+      h1 { margin-bottom: 4px; }
+      small { color: #666; }
+      section { border: 1px solid #ddd; border-radius: 10px; padding: 16px; margin: 16px 0; }
+      .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 8px 0; }
+      input { padding: 8px; min-width: 140px; }
+      button { padding: 8px 12px; cursor: pointer; border-radius: 8px; border: 1px solid #ccc; background: #f7f7f7; }
+      .saida { font-weight: 600; }
+      .hint { color: #555; font-size: 0.9rem; }
+      hr { margin: 32px 0; }
+    </style>
+  </head>
+  <body>
+    <h1>Ficha JavaScript</h1>
+    <small>Preenche os campos e clica nos botões.</small>
+    <section>
+      <h3>Subtrair dois números</h3>
+      <div class="row">
+        <input id="sub-a" type="number" placeholder="A" />
+        <input id="sub-b" type="number" placeholder="B" />
+        <button id="btn-somar">Somar</button>
+        <button id="btn-subtrair">Subtrair</button>
+        <button id="btn-multiplicar">Multiplicar</button>
+        <button id="btn-dividir">Dividir</button>
+      </div>
+      <div>Resultado: <span id="sub-res" class="saida">—</span></div>
+      <div class="hint">All your base are belong to us.</div>
+    </section>
+
+    <script src="calc.js"></script>
+  </body>
+</html>

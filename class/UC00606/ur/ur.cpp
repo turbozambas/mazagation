@@ -5,8 +5,9 @@
 #include <string>
 using namespace std;
 
-int turn=0, rng;
-bool win=false, tryAgain=false;
+// core game mechanics declarations
+int turn=0, rng; // turn and turn's roll
+bool win=false, tryAgain=false; 
 string reset="\033[0m", bold="\033[1m";
 string landing, beadsList;
 
@@ -27,7 +28,6 @@ int paths[2][16][2]={
 int rosettes[5][2]={{0,0},{2,0},{1,3},{0,6},{2,6}};
 int rolls[5], sumR;
 
-
 // RNG (cppreference.com/cpp/numeric/random/uniform_int_distribution)
 int randomNumber(int x, int y) {
     static random_device rd;
@@ -37,7 +37,6 @@ int randomNumber(int x, int y) {
 }
 
 void init() {
-    system("clear");
     cout << "\n\n\t  ##############################" << endl; // hello!
     cout << "\t  ### " << bold << "** ROYAL GAME OF UR **" << reset << " ###" << endl; // hello!
     cout << "\t  ##############################"<< endl; // hello!
@@ -46,13 +45,8 @@ void init() {
     players[1].tag='B';
     players[0].color="\033[38;2;217;164;65m";
     players[1].color="\033[38;2;75;165;225m";
-    for (int i=0;i<7;i++) {
-        players[0].beads[i]=0;
-        players[1].beads[i]=0;
-    }
-    for (int i=0;i<5;i++) {
-        rolls[i]=0;
-    }
+    for (int i=0;i<2;i++) for (int j=0;j<7;j++) players[0].beads[j]=0;
+    for (int i=0;i<5;i++) rolls[i]=0;
     for (int i=0;i<16;i++) {
         for (int j=0;j<2;j++) {
             players[0].paths[i][j]=paths[0][i][j];
@@ -77,7 +71,6 @@ int checkBeads(int p, int pos) {
 }
 
 void printBoard() {
-    system("clear");
     cout << endl;
     cout << players[player].color << bold << "\tPlayer " << players[player].p << " rolls " << rng << reset;
     cout << endl;
@@ -167,22 +160,30 @@ void askPlayerMove() {
 }
 
 void rollDice() {
-    rng=0;
-    for (int i=0;i<4;i++) rng+=randomNumber(0,1);
-    rolls[rng]++;
+    rng=0; // reset dices
+    for (int i=0;i<4;i++) rng+=randomNumber(0,1); // run rng 4 times for propper roll chances
+    rolls[rng]++; // update roll counts
     printBoard();
     if (rng>0) askPlayerMove();
-    if (rng==0) turn++;
+    if (rng==0) turn++; // automatically pass when roll is 0
 }
 
 void checkWinConditions() {
     for (int i=0;i<2;i++) {
         int c=0; // elderlywomanbehindacounterinasmalltown
-        for (int j=0;j<7;j++) {
-            if (players[i].beads[j]==15) c++;
-        }
+        for (int j=0;j<7;j++) if (players[i].beads[j]==15) c++;
         if (c==7) win=true;
     }
+}
+
+void printRolls() { // print rolls counts when game is over
+    cout << bold << "\n\tRolls:";
+    for (int i=0;i<5;i++) {
+        cout << bold << "\n\t" << i << reset << "[" << rolls[i] << "]";
+        sumR+=rolls[i];
+        for (int j=0;j<rolls[i];j++) cout << "#";
+    }
+    cout << bold << "\n\tT" << reset << "[" << sumR << "]";
 }
 
 int main() {
@@ -194,14 +195,7 @@ int main() {
         checkWinConditions();
     } while (!win);
     printBoard();
-    // print rolls
-    cout << bold << "\n\tRolls:";
-    for (int i=0;i<5;i++) {
-        cout << bold << "\n\t" << i << reset << "[" << rolls[i] << "]";
-        sumR+=rolls[i];
-        for (int j=0;j<rolls[i];j++) cout << "#";
-    }
-    cout << bold << "\n\tT" << reset << "[" << sumR << "]";
+    printRolls();
     cout << bold << "\n\n\tGAME OVER\n" << endl;
     return 0;
 }

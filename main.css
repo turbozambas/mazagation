@@ -26,11 +26,12 @@ p {
 footer { margin-top: 6px; }
 
 @media (max-width: 1024px) {
-	html { width: 100%; }
-	h1 { font-size: 20px; }
-	p { font-size: 1em; }
-	.badge { font-size: 18px; }
-	footer { font-size: 14px; }
+	html { width: 80%; justify-content: center; margin: 0 auto; }
+	h1 { font-size: 24px; }
+	p { margin:0; font-size: 18px; }
+	.badge { padding: 8px; margin:4px; margin-top:10px; font-size: 18px; }
+	header { padding: 10px; }
+	footer { padding: 10px; font-size: 16px; }
 	.percentage { width: 60px; }
 }
 @media (min-width: 1025px) {
@@ -41,3 +42,18 @@ footer { margin-top: 6px; }
 	.uc { width: 80px; }
 	.percentage { width: 50px; }
 }
+.theme-success, .bg-success {
+	border:0;
+	background-color: #287C70;
+	color: white;
+}
+.theme-primary, .bg-primary {
+	border:0;
+	background-color: #315C91;
+	color: #E5D6B8;
+}
+.theme-secondary {
+	border:0;
+	background-color: #292D36;
+	color: #9099a1;
+}4

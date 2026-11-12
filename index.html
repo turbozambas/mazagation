@@ -11,12 +11,12 @@
 </head>
 
 <body>
+	<header><h1>TETPSI - Unidades de Formação</h1></header>
 	<content>
-		<h1>TETPSI - Unidades de Formação</h1>
 		<ul class="list-group"></ul>
 	</content>
 	<footer>
-		<p>last update: Nov 8th 26</p>
+		<p>last update: Nov 11th 26</p>
 	</footer>
 </body>
 
@@ -27,7 +27,7 @@
 		let name=uc[i].name;
 		let totalHours=uc[i].hours.total;
 		let completeHours=uc[i].hours.complete;
-		let percentage=completeHours/totalHours*100;
+		let percentage=Math.round(completeHours/totalHours*100);
 		let theme;
 		let instructorID=uc[i].instructor;
 		let instructor=inst[instructorID].name;
@@ -35,7 +35,7 @@
 		else if (percentage==0) theme="secondary";
 		else theme="primary";
 
-		$("ul").append(`<li class="list-group-item">
+		$("ul").append(`<li class="list-group-item" title="${name}">
 			<div class="details">
 				<p><span class="badge badge-outline theme-${theme} uc">${id}</span> ${instructor}</p><p>${completeHours}/${totalHours}h <span class="badge theme-${theme} percentage">${percentage}%</span></p>
 			</div>

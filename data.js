@@ -39,7 +39,7 @@ const uc = {
 		"id": "UC00600",
 		"name": "ANALISAR AS FUNÇÕES E ESTRUTURA DA ORGANIZAÇÃO",
 		"hours": {
-			"complete": 10,
+			"complete": 14,
 			"total": 25
 		},
 		"instructor": 3
@@ -75,7 +75,7 @@ const uc = {
 		"id": "UC00604",
 		"name": "PROGRAMAR PARA A WEB, NA VERTENTE FRONTEND (CLIENT-SIDE)",
 		"hours": {
-			"complete": 43,
+			"complete": 45,
 			"total": 50
 		},
 		"instructor": 2
@@ -93,7 +93,7 @@ const uc = {
 		"id": "UC00606",
 		"name": "DESENVOLVER PROGRAMAS EM LINGUAGEM ESTRUTURADA",
 		"hours": {
-			"complete": 35,
+			"complete": 39,
 			"total": 50
 		},
 		"instructor": 1

@@ -28,6 +28,16 @@ int paths[2][16][2]={
 int rosettes[5][2]={{0,0},{2,0},{1,3},{0,6},{2,6}};
 int rolls[5], sumR;
 
+// last N dice rolls structure and declarations
+struct rollRecord {
+    int roll;      // dice roll (0-4)
+    int player;     // P1 or P2
+};
+const int HISTORY_SIZE=7; // defines history size
+rollRecord lastRolls[HISTORY_SIZE];
+int historyCount=0, historyHead=0; // counters
+string showLastRolls;
+
 // RNG (cppreference.com/cpp/numeric/random/uniform_int_distribution)
 int randomNumber(int x, int y) {
     static random_device rd;
@@ -70,29 +80,57 @@ int checkBeads(int p, int pos) {
     return c;
 }
 
+void pushRoll(int r, int p) {
+    lastRolls[historyHead].roll=r;
+    lastRolls[historyHead].player=p;
+    historyHead=(historyHead+1) % HISTORY_SIZE;
+    if (historyCount<HISTORY_SIZE) historyCount++;
+}
+
+void calcLastRolls() {
+    showLastRolls="";
+    int idx = (historyHead-historyCount+HISTORY_SIZE) % HISTORY_SIZE; // start from the oldest entry
+    for (int i=0;i<historyCount;++i) {
+        int p=lastRolls[idx].player;
+        showLastRolls+=players[p].color+"["+to_string(lastRolls[idx].roll)+"]";
+        idx=(idx+1) % HISTORY_SIZE;
+    }
+    cout << "\n";
+}
+
 void printBoard() {
+    system("clear");
     cout << endl;
     cout << players[player].color << bold << "\tPlayer " << players[player].p << " rolls " << rng << reset;
     cout << endl;
-    for (int i=0;i<3;i++) for (int j=0;j<8;j++) board[i][j]="  ";
-    for (int i=0;i<5;i++) board[rosettes[i][0]][rosettes[i][1]]="**";
-    for (int i=0;i<2;i++) for (int j=0;j<7;j++) board[paths[i][players[i].beads[j]][0]][paths[i][players[i].beads[j]][1]]=bold+players[i].color+players[i].tag+to_string(j)+reset;
+    for (int i=0;i<3;i++) for (int j=0;j<8;j++) board[i][j]="  "; // reset board
+    for (int i=0;i<5;i++) board[rosettes[i][0]][rosettes[i][1]]="**"; // print rosettes
+    for (int i=0;i<2;i++) {
+        for (int j=0;j<7;j++) { // print beads
+            board[paths[i][players[i].beads[j]][0]][paths[i][players[i].beads[j]][1]]=bold+players[i].color+players[i].tag+to_string(j)+reset;
+        }
+    }
     cout << endl;
+
     // prep info
-    string info[7]={"\t\tRoyal Game of Ur","\t\tRoll:","","","","\t\tP1:","\t\tP2:"};
-    info[1]="\t\tRoll: "+to_string(rng);
+    string info[7];
+    info[0]="\t\tThe Royal Game of Ur";
+    info[2]="\t\tRoll: "+to_string(rng);
+    info[3]="\t\tLast 7: "+showLastRolls;
     info[5]="\t\t"+players[0].color+"P1["+to_string(checkBeads(0,0))+"]["+to_string(checkBeads(0,15))+"]"+beadsList; // set P1 home and score
     info[6]="\t\t"+players[1].color+"P2["+to_string(checkBeads(1,0))+"]["+to_string(checkBeads(1,15))+"]"+beadsList; // set P2 home and score
+    
     // map board
     string canvas[7][17] = {
-        {"\t##","##","##","##","##","##","##","##","##",board[0][4],"  ",board[0][5],"##","##","##","##","##"+bold+info[0]+reset},
-        {"\t##",board[0][0],"##",board[0][1],"##",board[0][2],"##",board[0][3],"##","  ","  ","  ","##",board[0][6],"##",board[0][7],"##"+bold+info[1]+reset},
-        {"\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"+bold+info[2]+reset},
-        {"\t##",board[1][0],"##",board[1][1],"##",board[1][2],"##",board[1][3],"##",board[1][4],"##",board[1][5],"##",board[1][6],"##",board[1][7],"##"+bold+info[3]+reset},
-        {"\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"+bold+info[4]+reset},
-        {"\t##",board[2][0],"##",board[2][1],"##",board[2][2],"##",board[2][3],"##","  ","  ","  ","##",board[2][6],"##",board[2][7],"##"+bold+info[5]+reset},
-        {"\t##","##","##","##","##","##","##","##","##",board[2][4],"  ",board[2][5],"##","##","##","##","##"+bold+info[6]+reset}
+        {"\t\t##","##","##","##","##","##","##","##","##",board[0][4],"  ",board[0][5],"##","##","##","##","##"+bold+info[0]+reset},
+        {"\t\t##",board[0][0],"##",board[0][1],"##",board[0][2],"##",board[0][3],"##","  ","  ","  ","##",board[0][6],"##",board[0][7],"##"+bold+info[1]+reset},
+        {"\t\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"+bold+info[2]+reset},
+        {"\t\t##",board[1][0],"##",board[1][1],"##",board[1][2],"##",board[1][3],"##",board[1][4],"##",board[1][5],"##",board[1][6],"##",board[1][7],"##"+bold+info[3]+reset},
+        {"\t\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"+bold+info[4]+reset},
+        {"\t\t##",board[2][0],"##",board[2][1],"##",board[2][2],"##",board[2][3],"##","  ","  ","  ","##",board[2][6],"##",board[2][7],"##"+bold+info[5]+reset},
+        {"\t\t##","##","##","##","##","##","##","##","##",board[2][4],"  ",board[2][5],"##","##","##","##","##"+bold+info[6]+reset}
     };
+    
     // print board
     for (int i=0;i<7;i++) {
         for (int j=0;j<17;j++) {
@@ -163,6 +201,8 @@ void rollDice() {
     rng=0; // reset dices
     for (int i=0;i<4;i++) rng+=randomNumber(0,1); // run rng 4 times for propper roll chances
     rolls[rng]++; // update roll counts
+    pushRoll(rng, player);
+    calcLastRolls();
     printBoard();
     if (rng>0) askPlayerMove();
     if (rng==0) turn++; // automatically pass when roll is 0
@@ -187,15 +227,15 @@ void printRolls() { // print rolls counts when game is over
 }
 
 int main() {
-    init();
-    do {
-        setPlayer();
-        if (tryAgain) askPlayerMove();
-        else rollDice();
-        checkWinConditions();
+    init(); // initialization
+    do { // main game cycle
+        setPlayer(); // sets both player's flags
+        if (tryAgain) askPlayerMove(); // bypasses dice rolls if needed
+        else rollDice(); // rolls 4 binary dices
+        checkWinConditions(); // counts each player's beads
     } while (!win);
-    printBoard();
-    printRolls();
+    printBoard(); // prints the board
+    printRolls(); // prints roll statistics
     cout << bold << "\n\n\tGAME OVER\n" << endl;
     return 0;
 }

@@ -3,6 +3,7 @@
 #include <math.h>
 #include <random>
 #include <string>
+#include <cstdlib>
 using namespace std;
 
 // core game mechanics declarations
@@ -33,10 +34,18 @@ struct rollRecord {
     int roll;      // dice roll (0-4)
     int player;     // P1 or P2
 };
-const int HISTORY_SIZE=7; // defines history size
+const int HISTORY_SIZE=7; // sets history size
 rollRecord lastRolls[HISTORY_SIZE];
 int historyCount=0, historyHead=0; // counters
 string showLastRolls;
+
+void clearScreen() {
+#ifdef _WIN32
+    system("cls"); // Windows
+#else
+    system("clear"); // Linux/macOS
+#endif
+}
 
 // RNG (cppreference.com/cpp/numeric/random/uniform_int_distribution)
 int randomNumber(int x, int y) {
@@ -99,9 +108,10 @@ void calcLastRolls() {
 }
 
 void printBoard() {
-    system("clear");
+    clearScreen();
     cout << endl;
-    cout << players[player].color << bold << "\tPlayer " << players[player].p << " rolls " << rng << reset;
+    if (win) cout << players[player].color << bold << "\tPlayer " << players[player].p << " WINS! " << reset;
+    else cout << players[player].color << bold << "\tPlayer " << players[player].p << " rolls " << rng << reset;
     cout << endl;
     for (int i=0;i<3;i++) for (int j=0;j<8;j++) board[i][j]="  "; // reset board
     for (int i=0;i<5;i++) board[rosettes[i][0]][rosettes[i][1]]="**"; // print rosettes
@@ -200,7 +210,7 @@ void askPlayerMove() {
 void rollDice() {
     rng=0; // reset dices
     for (int i=0;i<4;i++) rng+=randomNumber(0,1); // run rng 4 times for propper roll chances
-    rolls[rng]++; // update roll counts
+    rolls[rng]++; // update roll counters
     pushRoll(rng, player);
     calcLastRolls();
     printBoard();
@@ -216,14 +226,14 @@ void checkWinConditions() {
     }
 }
 
-void printRolls() { // print rolls counts when game is over
-    cout << bold << "\n\tRolls:";
+void printRolls() { // print roll counters when game is over
+    cout << bold << "\n\tDice Rolls:";
     for (int i=0;i<5;i++) {
-        cout << bold << "\n\t" << i << reset << "[" << rolls[i] << "]";
+        cout << bold << "\n\t" << i << reset << ": [" << rolls[i] << "]\t";
         sumR+=rolls[i];
         for (int j=0;j<rolls[i];j++) cout << "#";
     }
-    cout << bold << "\n\tT" << reset << "[" << sumR << "]";
+    cout << bold << "\n\tT" << reset << ": [" << sumR << "]";
 }
 
 int main() {

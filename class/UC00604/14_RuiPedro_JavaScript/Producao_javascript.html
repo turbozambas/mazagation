@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font-family: system-ui, Arial, sans-serif; margin: 24px; }
+      h1 { margin-bottom: 4px; }
+      small { color: #666; }
+      section { border: 1px solid #ddd; border-radius: 10px; padding: 16px; margin: 16px 0; }
+      .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 8px 0; }
+      input { padding: 8px; min-width: 140px; }
+      button { padding: 8px 12px; cursor: pointer; border-radius: 8px; border: 1px solid #ccc; background: #f7f7f7; }
+      .saida { font-weight: 600; }
+      .hint { color: #555; font-size: 0.9rem; }
+      hr { margin: 32px 0; }
+    </style>
+  </head>
+  <body>
+    <h1>Ficha JavaScript</h1>
+    <small>Preenche os campos e clica nos botões.</small>
+
+    <!-- 1) MAIOR -->
+    <section>
+      <h3>Maior de dois números</h3>
+      <div class="row">
+        <input id="maior-a" type="number" placeholder="A" />
+        <input id="maior-b" type="number" placeholder="B" />
+        <button id="btn-maior">Comparar</button>
+      </div>
+      <div>Maior: <span id="maior-res" class="saida">—</span></div>
+      <div class="hint">Função <code>maior(a, b)</code> retorna o maior dos dois.</div>
+    </section>
+
+    <!-- 2) QUADRADO -->
+    <section>
+      <h3>Quadrado de um número</h3>
+      <div class="row">
+        <input id="quad-n" type="number" placeholder="Número" />
+        <button id="btn-quad">Calcular</button>
+      </div>
+      <div>Resultado: <span id="quad-res" class="saida">—</span></div>
+      <div class="hint">Função <code>quadrado(n)</code> devolve n².</div>
+    </section>
+
+    <!-- 3) MAIORIDADE -->
+    <section>
+      <h3>Verificar maioridade</h3>
+      <div class="row">
+        <input id="idade" type="number" placeholder="Idade" />
+        <button id="btn-idade">Verificar</button>
+      </div>
+      <div>Resultado: <span id="idade-res" class="saida">—</span></div>
+      <div class="hint">Função <code>ehMaiorDeIdade(idade)</code> devolve uma mensagem apropriada.</div>
+    </section>
+
+    <script src="14_RuiPedro_CET0126.js"></script>
+  </body>
+</html>

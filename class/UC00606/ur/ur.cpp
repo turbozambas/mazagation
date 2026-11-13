@@ -9,12 +9,12 @@ using namespace std;
 // core game mechanics declarations
 int turn=0, rng; // turn and turn's roll
 bool win=false, tryAgain=false; 
-string reset="\033[0m", bold="\033[1m";
+string white="\033[38;2;232;225;211m", gray="\033[38;2;166;162;154m", reset="\033[0m", bold="\033[1m";
 string landing, beadsList;
 
 // player related declarations
 struct Player {
-    string tag, color;
+    string tag, color, selector;
     int beads[7], p, paths[16][2];
 };
 Player players[2];
@@ -39,6 +39,7 @@ rollRecord lastRolls[HISTORY_SIZE];
 int historyCount=0, historyHead=0; // counters
 string showLastRolls;
 
+// Clear Screen (https://www.cppbetterexplained.com/posts/cpp-clear-console-screen/)
 void clearScreen() {
 #ifdef _WIN32
     system("cls"); // Windows
@@ -110,7 +111,7 @@ void calcLastRolls() {
 void printBoard() {
     clearScreen();
     cout << endl;
-    if (win) cout << players[player].color << bold << "\tPlayer " << players[player].p << " WINS! " << reset;
+    if (win) cout << players[player].color << bold << "\tPlayer " << players[player].p << " WINS!" << reset;
     else cout << players[player].color << bold << "\tPlayer " << players[player].p << " rolls " << rng << reset;
     cout << endl;
     for (int i=0;i<3;i++) for (int j=0;j<8;j++) board[i][j]="  "; // reset board
@@ -124,21 +125,21 @@ void printBoard() {
 
     // prep info
     string info[7];
-    info[0]="\t\tThe Royal Game of Ur";
-    info[2]="\t\tRoll: "+to_string(rng);
-    info[3]="\t\tLast 7: "+showLastRolls;
-    info[5]="\t\t"+players[0].color+"P1["+to_string(checkBeads(0,0))+"]["+to_string(checkBeads(0,15))+"]"+beadsList; // set P1 home and score
-    info[6]="\t\t"+players[1].color+"P2["+to_string(checkBeads(1,0))+"]["+to_string(checkBeads(1,15))+"]"+beadsList; // set P2 home and score
+    info[0]=white+"\t\t The Royal Game of Ur";
+    info[2]=white+"\t\t Roll: "+to_string(rng);
+    info[3]=white+"\t\t Last "+to_string(HISTORY_SIZE)+": "+showLastRolls;
+    info[5]=white+"\t\t"+players[0].selector+players[0].color+"P1["+to_string(checkBeads(0,0))+"]["+to_string(checkBeads(0,15))+"]"+beadsList; // set P1 home and score
+    info[6]=white+"\t\t"+players[1].selector+players[1].color+"P2["+to_string(checkBeads(1,0))+"]["+to_string(checkBeads(1,15))+"]"+beadsList; // set P2 home and score
     
     // map board
     string canvas[7][17] = {
-        {"\t\t##","##","##","##","##","##","##","##","##",board[0][4],"  ",board[0][5],"##","##","##","##","##"+bold+info[0]+reset},
-        {"\t\t##",board[0][0],"##",board[0][1],"##",board[0][2],"##",board[0][3],"##","  ","  ","  ","##",board[0][6],"##",board[0][7],"##"+bold+info[1]+reset},
-        {"\t\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"+bold+info[2]+reset},
-        {"\t\t##",board[1][0],"##",board[1][1],"##",board[1][2],"##",board[1][3],"##",board[1][4],"##",board[1][5],"##",board[1][6],"##",board[1][7],"##"+bold+info[3]+reset},
-        {"\t\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"+bold+info[4]+reset},
-        {"\t\t##",board[2][0],"##",board[2][1],"##",board[2][2],"##",board[2][3],"##","  ","  ","  ","##",board[2][6],"##",board[2][7],"##"+bold+info[5]+reset},
-        {"\t\t##","##","##","##","##","##","##","##","##",board[2][4],"  ",board[2][5],"##","##","##","##","##"+bold+info[6]+reset}
+        {gray+"\t\t##","##","##","##","##","##","##","##","##",board[0][4],"  ",board[0][5],gray+"##","##","##","##","##"+bold+info[0]+reset},
+        {gray+"\t\t##",board[0][0],gray+"##",board[0][1],gray+"##",board[0][2],gray+"##",board[0][3],gray+"##","  ","  ","  ","##",board[0][6],gray+"##",board[0][7],gray+"##"+bold+info[1]+reset},
+        {gray+"\t\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"+bold+info[2]+reset},
+        {gray+"\t\t##",board[1][0],gray+"##",board[1][1],gray+"##",board[1][2],gray+"##",board[1][3],gray+"##",board[1][4],gray+"##",board[1][5],gray+"##",board[1][6],gray+"##",board[1][7],gray+"##"+bold+info[3]+reset},
+        {gray+"\t\t##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##","##"+bold+info[4]+reset},
+        {gray+"\t\t##",board[2][0],gray+"##",board[2][1],gray+"##",board[2][2],gray+"##",board[2][3],gray+"##","  ","  ","  ","##",board[2][6],gray+"##",board[2][7],gray+"##"+bold+info[5]+reset},
+        {gray+"\t\t##","##","##","##","##","##","##","##","##",board[2][4],"  ",board[2][5],gray+"##","##","##","##","##"+bold+info[6]+reset}
     };
     
     // print board
@@ -151,17 +152,21 @@ void printBoard() {
 }
 
 void errorMsg() {
-    cout << bold << "\n\tThese aren't the droids you're looking for. Move along!\n" << reset;
+    cout << bold << white << "\n\tThese aren't the droids you're looking for. Move along!\n" << reset;
 }
 
 void setPlayer() { // turn decides who plays next
     if (turn%2==0) {
         player=0;
         opponent=1;
+        players[0].selector='>';
+        players[1].selector=' ';
     }
     else {
         player=1;
         opponent=0;
+        players[0].selector=' ';
+        players[1].selector='>';
     }
 }
 
@@ -185,9 +190,9 @@ int move(int o, int pos) {
         }
     }
     board[players[player].paths[o][0]][players[player].paths[o][1]]=players[player].tag;
-    tryAgain=false;
+    tryAgain=false; // reset flag
     resetOpponentsBead(pos);
-    if (landing=="**") return 0;
+    if (landing=="**") return 0; // roll again
     else turn++;
     return 0;
 }
@@ -204,7 +209,7 @@ void askPlayerMove() {
     else if (opt-'0'>=0 && opt-'0'<7 && players[player].beads[opt-'0']+rng<16 && checkCellIsFree(players[player].beads[opt-'0']+rng)) move(opt-'0', players[player].beads[opt-'0']+rng);
     else {
         errorMsg();
-        tryAgain=true; 
+        tryAgain=true;  // ask again
     }
 }
 
@@ -228,13 +233,13 @@ void checkWinConditions() {
 }
 
 void printRolls() { // print roll counters when game is over
-    cout << bold << "\n\tDice Rolls:";
+    cout << bold << "\n\n\tDice Rolls:";
     for (int i=0;i<5;i++) {
-        cout << bold << "\n\t" << i << reset << ": [" << rolls[i] << "]\t";
+        cout << bold << white << "\n\t" << i << reset << ": [" << rolls[i] << "]\t";
         sumR+=rolls[i];
         for (int j=0;j<rolls[i];j++) cout << "#";
     }
-    cout << bold << "\n\tT" << reset << ": [" << sumR << "]";
+    cout << bold << white << "\n\tT" << reset << ": [" << sumR << "]";
 }
 
 int main() {

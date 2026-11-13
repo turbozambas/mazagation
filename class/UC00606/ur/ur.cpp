@@ -196,6 +196,7 @@ void askPlayerMove() {
     char opt;
     cout << "\n\t" << bold << players[player].color << "Player " << players[player].p << reset << players[player].color << " move a bead (0-6) by " << bold << rng << reset << players[player].color << " spaces or pass (P)... " << reset;
     cin >> opt;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clears remaining numbers on current input
     if (opt=='P' || opt=='p') {
         turn++;
         tryAgain=false;
@@ -203,7 +204,7 @@ void askPlayerMove() {
     else if (opt-'0'>=0 && opt-'0'<7 && players[player].beads[opt-'0']+rng<16 && checkCellIsFree(players[player].beads[opt-'0']+rng)) move(opt-'0', players[player].beads[opt-'0']+rng);
     else {
         errorMsg();
-        tryAgain=true;
+        tryAgain=true; 
     }
 }
 

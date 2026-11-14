@@ -93,7 +93,7 @@ const uc = {
 		"id": "UC00606",
 		"name": "DESENVOLVER PROGRAMAS EM LINGUAGEM ESTRUTURADA",
 		"hours": {
-			"complete": 39,
+			"complete": 43,
 			"total": 50
 		},
 		"instructor": 1

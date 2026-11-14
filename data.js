@@ -30,7 +30,7 @@ const uc = {
 		"id": "UC00599",
 		"name": "INTERAGIR EM INGLÊS NAS ATIVIDADES DO SETOR DA INFORMÁTICA",
 		"hours": {
-			"complete": 10,
+			"complete": 14,
 			"total": 50
 		},
 		"instructor": 4
@@ -75,7 +75,7 @@ const uc = {
 		"id": "UC00604",
 		"name": "PROGRAMAR PARA A WEB, NA VERTENTE FRONTEND (CLIENT-SIDE)",
 		"hours": {
-			"complete": 45,
+			"complete": 50,
 			"total": 50
 		},
 		"instructor": 2

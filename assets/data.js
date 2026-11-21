@@ -30,7 +30,7 @@ const uc = {
 		"id": "UC00599",
 		"name": "INTERAGIR EM INGLÊS NAS ATIVIDADES DO SETOR DA INFORMÁTICA",
 		"hours": {
-			"complete": 14,
+			"complete": 18,
 			"total": 50
 		},
 		"instructor": 4
@@ -39,7 +39,7 @@ const uc = {
 		"id": "UC00600",
 		"name": "ANALISAR AS FUNÇÕES E ESTRUTURA DA ORGANIZAÇÃO",
 		"hours": {
-			"complete": 14,
+			"complete": 18,
 			"total": 25
 		},
 		"instructor": 3
@@ -66,7 +66,7 @@ const uc = {
 		"id": "UC00603",
 		"name": "CRIAR A ESTRUTURA DE UMA BASE DE DADOS E PROGRAMAR EM SQL",
 		"hours": {
-			"complete": 0,
+			"complete": 8,
 			"total": 50
 		},
 		"instructor": 2
@@ -93,7 +93,7 @@ const uc = {
 		"id": "UC00606",
 		"name": "DESENVOLVER PROGRAMAS EM LINGUAGEM ESTRUTURADA",
 		"hours": {
-			"complete": 43,
+			"complete": 50,
 			"total": 50
 		},
 		"instructor": 1
@@ -102,7 +102,7 @@ const uc = {
 		"id": "UC00607",
 		"name": "DESENVOLVER PROGRAMAS COMPLEXOS EM LINGUAGEM ESTRUTURADA",
 		"hours": {
-			"complete": 0,
+			"complete": 9,
 			"total": 50
 		},
 		"instructor": 1

@@ -1,4 +1,4 @@
-# VELO.GO
+# VELO.GO (Rui Pedro Moreira)
 
 ## UC00600 \| Projeto de negócio
 

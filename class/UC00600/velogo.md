@@ -1,6 +1,7 @@
-# VELO.GO (Rui Pedro Moreira)
+# VELO.GO
 
 ## UC00600 \| Projeto de negócio
+**Rui Pedro Moreira**
 
 **Slogan:** Pequenas entregas. Grandes distâncias.\
 **Área inicial de atuação:** Braga\

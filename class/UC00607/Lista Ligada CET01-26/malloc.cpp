@@ -11,6 +11,48 @@ No* PRIMEIRO = NULL;
 No* SEGUNDO = NULL;
 No* TERCEIRO = NULL;
 
+/*void inserirMeio() {
+	No* NOVO = new No{15, "Bernardo", NULL };
+	No* ACTUAL = PRIMEIRO;
+	No* ANTERIOR = PRIMEIRO;
+	
+	while (ACTUAL != NULL) {
+		if ((*NOVO).numero < (*ACTUAL).numero) {
+			(*NOVO).proximo = (*ACTUAL).proximo;
+			(*ANTERIOR).proximo = (*ACTUAL).proximo;
+		} else cout << "erro...";
+		ANTERIOR = ACTUAL;
+		ACTUAL = (*ACTUAL).proximo;
+	}
+} */
+
+
+void inserirMeio() {
+	No* NOVO = new No{ 15, "Bernardo", NULL };
+	No* ACTUAL = PRIMEIRO;
+	while (ACTUAL != NULL) {
+		cout << NOVO << endl;
+
+		if ((*NOVO).numero < (*(*ACTUAL).proximo).numero && (*NOVO).numero >(*ACTUAL).numero) {
+			
+			(*NOVO).proximo = (*ACTUAL).proximo;
+			(*ACTUAL).proximo = NOVO;
+		}
+		ACTUAL = (*ACTUAL).proximo;
+	}
+}
+
+void contar() {
+	No* ACTUAL = PRIMEIRO;
+	int contador = 0;
+
+	while (ACTUAL != NULL) {
+		contador++;
+		ACTUAL = (*ACTUAL).proximo;
+	}
+	cout << contador << " nós." << endl;
+}
+
 void initLista() {
 	// INIT LISTA COM 3 NODES
 	PRIMEIRO = new No{ 10, "Ana", NULL };
@@ -43,6 +85,7 @@ void apagarLista() {
 
 int main()
 {
+	initLista();
 	//dados genéricos para o programa:
 	char op; 
 	int contador;
@@ -73,6 +116,7 @@ int main()
 		case '3':		
 			break;
 		case '4':
+			inserirMeio();
 			break;
 		case '5' :
 			break;
@@ -100,6 +144,7 @@ int main()
 			break;
 		case 'E':
 		case 'e':
+			contar();
 			break;
 		case 'F':
 		case 'f':

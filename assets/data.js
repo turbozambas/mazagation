@@ -30,7 +30,7 @@ const uc = {
 		"id": "UC00599",
 		"name": "INTERAGIR EM INGLÊS NAS ATIVIDADES DO SETOR DA INFORMÁTICA",
 		"hours": {
-			"complete": 18,
+			"complete": 22,
 			"total": 50
 		},
 		"instructor": 4
@@ -102,7 +102,7 @@ const uc = {
 		"id": "UC00607",
 		"name": "DESENVOLVER PROGRAMAS COMPLEXOS EM LINGUAGEM ESTRUTURADA",
 		"hours": {
-			"complete": 9,
+			"complete": 12,
 			"total": 50
 		},
 		"instructor": 1

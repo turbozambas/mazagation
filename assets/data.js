@@ -3,7 +3,7 @@ const uc = {
 		"id": "UC00245",
 		"name": "DESENVOLVER ALGORITMOS",
 		"hours": {
-			"complete": 0,
+			"complete": 7,
 			"total": 25
 		},
 		"instructor": 5
@@ -39,7 +39,7 @@ const uc = {
 		"id": "UC00600",
 		"name": "ANALISAR AS FUNÇÕES E ESTRUTURA DA ORGANIZAÇÃO",
 		"hours": {
-			"complete": 18,
+			"complete": 22,
 			"total": 25
 		},
 		"instructor": 3
@@ -66,7 +66,7 @@ const uc = {
 		"id": "UC00603",
 		"name": "CRIAR A ESTRUTURA DE UMA BASE DE DADOS E PROGRAMAR EM SQL",
 		"hours": {
-			"complete": 8,
+			"complete": 12,
 			"total": 50
 		},
 		"instructor": 2

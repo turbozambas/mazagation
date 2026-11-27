@@ -25,7 +25,7 @@ void contar() {
 void listar() {
 	No* ACTUAL = PRIMEIRO;
 	while (ACTUAL != NULL) {
-		cout << (*ACTUAL).numero << " " << (*ACTUAL).nome << endl;
+		cout << "\t" << (*ACTUAL).numero << " " << (*ACTUAL).nome << endl;
 		ACTUAL = (*ACTUAL).proximo;
 	}
 }
@@ -37,7 +37,7 @@ void initLista() {
 	TERCEIRO = new No{ 30, "Carla", NULL };
 	(*PRIMEIRO).proximo = SEGUNDO;
 	(*SEGUNDO).proximo = TERCEIRO;
-	cout << "\nInicializado." << endl;
+	cout << "\n\tInicializado." << endl;
 	listar();
 }
 
@@ -53,8 +53,8 @@ void inserirMeio(int n, string nome) {
 	if (((*ACTUAL).proximo != NULL) && ((*NOVO).numero > (*ACTUAL).numero)) {
 		(*NOVO).proximo = (*ACTUAL).proximo;
 		(*ACTUAL).proximo = NOVO;
-		cout << "\nBloco inserido." << endl;
-	} else cout << "\nBloco NAO inserido. Adeus!" << endl;
+		cout << "\n\tBloco inserido." << endl;
+	} else cout << "\n\tBloco NAO inserido. Adeus!" << endl;
 	listar();
 }
 
@@ -67,7 +67,7 @@ void apagarLista() {
 		ACTUAL = PROXIMO;
 	}
 	PRIMEIRO = NULL;
-	cout << "\nPuff!!!." << endl;
+	cout << "\n\tPuff!!!." << endl;
 	listar();
 }
 
@@ -85,6 +85,18 @@ int pedirNumero(int numero) {
 	return numero;
 }
 
+// k - sizeof da struct
+void calcMem() {
+	No* ACTUAL = PRIMEIRO;
+	int totalMem=0;
+	while (ACTUAL != NULL) {
+		totalMem += sizeof(No);
+		ACTUAL = (*ACTUAL).proximo;
+	}
+
+	cout << "\n\tTamanho em memoria: " << totalMem << " bytes." << endl;
+}
+
 int main() {
 	initLista(); // inicializa a lista para poupar tempo a testar--
 
@@ -100,7 +112,7 @@ int main() {
 			<< "[f:ler 2 nums; trocar os nos][g:inverter a lista] [H: ler isto, por favor] [k:sizeof da struct]" << endl
 			<< "[Y:apaga ate primeiro par] [y:elimina repetido...se...]" << endl
 			<< "[0:SAIR]" << endl
-			<< "Op?";
+			<< "Op? ";
 		cin >> op;
 		switch (op) {
 			case 'Y':	// apaga até primeiro par
@@ -114,13 +126,13 @@ int main() {
 			case '3':	// insere no fim
 				break;
 			case '4': {	// insere ao meio
-						int n = 0;
-						string nome = "Fulano";
-						n = pedirNumero(n);
-						nome = pedirNome(nome);
-						inserirMeio(n, nome);
-						break;
-					}
+				int n = 0;
+				string nome = "Fulano";
+				n = pedirNumero(n);
+				nome = pedirNome(nome);
+				inserirMeio(n, nome);
+				break;
+			}
 			case '5' :	// INSERE(completo)
 				break;
 			case '6':	// remove cabeca
@@ -157,10 +169,11 @@ int main() {
 				break;
 			case 'H':
 			case 'h':	// lulz!
-				cout << "fazer algoritmos, nabo!..." << endl;
+				cout << "\n\tIs this the real life? Is this just fantasy?\n\tCaught in a landslide, no escape from reality\n\tOpen your eyes, look up to the skies and see\n\tI'm just a poor boy, I need no sympathy\n\tBecause I'm easy come, easy go, little high, little low\n\tAny way the wind blows\n\tDoesn't really matter to me, to me\n\n\tMama, just killed a man\n\tPut a gun against his head, pulled my trigger, now he's dead\n\tMama, life had just begun\n\tBut now I've gone and thrown it all away\n\tMama, ooh, didn't mean to make you cry\n\tIf I'm not back again this time tomorrow\n\tCarry on, carry on as if nothing really matters\n\n\tToo late, my time has come\n\tSends shivers down my spine, body's aching all the time\n\tGoodbye, everybody, I've got to go\n\tGotta leave you all behind and face the truth\n\tMama, ooh (Any way the wind blows)\n\tI don't wanna die\n\tI sometimes wish I'd never been born at all\n\n\tI see a little silhouetto of a man\n\tScaramouche, Scaramouche, will you do the Fandango?\n\tThunderbolt and lightning, very, very frightening me\n\t(Galileo) Galileo, (Galileo) Galileo, Galileo Figaro\n\tMagnifico (Oh-oh-oh-oh)\n\tBut I'm just a poor boy, nobody loves me\n\tHe's just a poor boy from a poor family\n\tSpare him his life from this monstrosity\n\tEasy come, easy go, will you let me go?\n\tBismillah, no, we will not let you go (Let him go)\n\tBismillah, we will not let you go (Let him go)\n\tBismillah, we will not let you go (Let me go)\n\tWill not let you go (Let me go)\n\t(Never, never, never, never, never, never let me go) Will not let you go\n\tNo, no, no, no, no, no, no\n\tOh, mamma mia, mamma mia (Mamma mia, let me go)\n\tBeelzebub has a devil put aside for me, for me, for me\n\n\tSo you think you can stone me and spit in my eye?\n\tSo you think you can love me and leave me to die?\n\tOh, baby, can't do this to me, baby\n\tJust gotta get out, just gotta get right outta here\n\n\t(Ooh, yeah, ooh, yeah)\n\tNothing really matters, anyone can see\n\tNothing really matters\n\tNothing really matters to me\n\tAny way the wind blows" << endl;
 				break;
 			case 'K':
 			case 'k':	// sizeof da struct
+				calcMem();
 				break;
 			default:
 				break;

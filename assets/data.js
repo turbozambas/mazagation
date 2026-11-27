@@ -12,7 +12,7 @@ const uc = {
 		"id": "UC00597",
 		"name": "COMUNICAR EM LÍNGUA PORTUGUESA NO SETOR DA INFORMÁTICA",
 		"hours": {
-			"complete": 3,
+			"complete": 6,
 			"total": 50
 		},
 		"instructor": 0
@@ -66,7 +66,7 @@ const uc = {
 		"id": "UC00603",
 		"name": "CRIAR A ESTRUTURA DE UMA BASE DE DADOS E PROGRAMAR EM SQL",
 		"hours": {
-			"complete": 12,
+			"complete": 15,
 			"total": 50
 		},
 		"instructor": 2

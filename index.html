@@ -11,17 +11,18 @@
 </head>
 
 <body>
-	<header><h1>TETPSI - Unidades de Formação</h1></header>
 	<content>
 		<ul class="list-group"></ul>
 	</content>
 	<footer>
-		<p>last update: Nov 26th 26</p>
+		<p>last update: Nov 28th 26</p>
 	</footer>
 </body>
 
 <script src="assets/data.js"></script>
 <script>
+	let totalHourCounter = 0;
+	let completeHourCounter = 0;
 	for (let i=0;i<Object.keys(uc).length;i++) {
 		let id=uc[i].id;
 		let name=uc[i].name;
@@ -35,16 +36,30 @@
 		else if (percentage==0) theme="secondary";
 		else theme="primary";
 
-		$("ul").append(`<li class="list-group-item" title="${name}">
-			<div class="details">
-				<p><span class="badge badge-outline theme-${theme} uc">${id}</span> ${instructor}</p><p>${completeHours}/${totalHours}h <span class="badge theme-${theme} percentage">${percentage}%</span></p>
-			</div>
-			<div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: 1px">
-				<div class="progress-bar bg-${theme}" style="width: ${percentage}%"></div>
-			</div>
-
+		$("ul").append(`
+			<li class="list-group-item" title="${name}">
+				<div class="details">
+					<p><span class="badge badge-outline theme-${theme} uc">${id}</span> ${instructor}</p><p>${completeHours}/${totalHours}h <span class="badge theme-${theme} percentage">${percentage}%</span></p>
+				</div>
+				<div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: 1px">
+					<div class="progress-bar bg-${theme}" style="width: ${percentage}%"></div>
+				</div>
 			</li>
 		`);
+		totalHourCounter+=totalHours;
+		completeHourCounter+=completeHours;
 	}
+
+	let percentage=Math.round(completeHourCounter/totalHourCounter*100);
+	$("ul").append(`
+			<li class="list-group-item" title="Total">
+				<div class="details">
+					<p><span class="badge badge-outline theme-primary uc">Total</span></p><p>${completeHourCounter}/${totalHourCounter}h <span class="badge theme-primary percentage">${percentage}%</span></p>
+				</div>
+				<div class="progress" role="progressbar" aria-label="Example 1px high" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="height: 1px">
+					<div class="progress-bar bg-primary" style="width: ${percentage}%"></div>
+				</div>
+			</li>
+		`);
 </script>
 </html>

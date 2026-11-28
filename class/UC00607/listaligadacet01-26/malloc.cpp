@@ -206,6 +206,22 @@ void trocarNos(int n1, int n2) {
 	delete tempB;
 }
 
+void inverter() {
+	No* ANTERIOR = NULL;
+	No* SEGUINTE = NULL;
+	No* ACTUAL = PRIMEIRO;
+
+	while (ACTUAL != NULL) {
+		SEGUINTE = (*ACTUAL).proximo;
+
+		(*ACTUAL).proximo = ANTERIOR;
+
+		ANTERIOR = ACTUAL;
+		ACTUAL = SEGUINTE;
+	}
+	PRIMEIRO = ANTERIOR;
+}
+
 int main() {
 	int n = 0;
 	string nome = "Fulano";
@@ -296,6 +312,8 @@ int main() {
 				break;
 			case 'G':
 			case 'g':	// inverter a lista
+				inverter();
+				listar();
 				break;
 			case 'H':
 			case 'h':	// lulz!

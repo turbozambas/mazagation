@@ -18,7 +18,6 @@ int contar() {
 		contador++;
 		ACTUAL = (*ACTUAL).proximo;
 	}
-	cout << contador << " nós." << endl;
 	return contador;
 }
 
@@ -112,8 +111,8 @@ void removerFim(int n) {
 	while (((*(*ACTUAL).proximo).proximo != NULL)) ACTUAL = (*ACTUAL).proximo;
 
 	if (n == (*(*ACTUAL).proximo).numero) {
-		(*ACTUAL).proximo = NULL;
 		delete (*ACTUAL).proximo;
+		(*ACTUAL).proximo = NULL;
 		cout << "\n\tBloco removido no fim" << endl;
 	} else cout << "\n\tBloco NAO removido no fim" << endl;
 }

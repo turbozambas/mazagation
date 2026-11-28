@@ -30,7 +30,7 @@ void listar() {
 	}
 }
 
-// b - init lista com 3 nos
+// b - init lista com 3 nodes
 void initLista() {
 	PRIMEIRO = new No{ 10, "Ana", NULL };
 	SEGUNDO = new No{ 20, "Bruno", NULL };
@@ -41,7 +41,34 @@ void initLista() {
 	listar();
 }
 
-// 3 - Inserir ao meio sem deixar inserir na cabeça e na cauda.
+// 2 - Inserir novo no início
+void inserirInicio(int n, string nome) {
+	No* NOVO = new No{ n, nome, NULL };
+	if ((*NOVO).numero < (*PRIMEIRO).numero) {
+		No* ACTUAL = PRIMEIRO;
+		PRIMEIRO = NOVO;
+		(*PRIMEIRO).proximo = ACTUAL;
+		cout << "\n\tBloco inserido no inicio." << endl;
+	} else cout << "\n\tBloco NAO inserido no inicio." << endl;
+	listar();
+}
+
+// 3 - Inserir novo no fim
+void inserirFim(int n, string nome) {
+	No* NOVO = new No{ n, nome, NULL };
+	No* ACTUAL = PRIMEIRO;
+
+	// vai iterando até ao ultimo.
+	while (((*ACTUAL).proximo != NULL)) ACTUAL = (*ACTUAL).proximo;
+
+	if ((*NOVO).numero > (*ACTUAL).numero) {
+		(*ACTUAL).proximo = NOVO;
+		cout << "\n\tBloco inserido no fim." << endl;
+	} else cout << "\n\tBloco NAO inserido no fim." << endl;
+	listar();
+}
+
+// 4 - Inserir novo ao meio sem deixar inserir na cabeça e na cauda.
 void inserirMeio(int n, string nome) {
 	No* NOVO = new No{ n, nome, NULL };
 	No* ACTUAL = PRIMEIRO;
@@ -49,13 +76,20 @@ void inserirMeio(int n, string nome) {
 	// enquanto o novo for maior que o próximo, vai iterando, depois pára.
 	while (((*ACTUAL).proximo != NULL) && ((*NOVO).numero > (*(*ACTUAL).proximo).numero)) ACTUAL = (*ACTUAL).proximo;
 
-	// se o actual não for o último e o novo maior que o actual, insere e lista.
+	// se o actual não for o último e o novo for maior que o actual, insere novo e lista.
 	if (((*ACTUAL).proximo != NULL) && ((*NOVO).numero > (*ACTUAL).numero)) {
 		(*NOVO).proximo = (*ACTUAL).proximo;
 		(*ACTUAL).proximo = NOVO;
-		cout << "\n\tBloco inserido." << endl;
-	} else cout << "\n\tBloco NAO inserido. Adeus!" << endl;
+		cout << "\n\tBloco inserido no meio." << endl;
+	} else cout << "\n\tBloco NAO inserido no meio." << endl;
 	listar();
+}
+
+// 5 - Inserir novo
+void inserir(int n, string nome) {
+	inserirInicio(n, nome);
+	inserirMeio(n, nome);
+	inserirFim(n, nome);
 }
 
 // a - limpar lista
@@ -98,21 +132,14 @@ void calcMem() {
 }
 
 int main() {
+	int n = 0;
+	string nome = "Fulano";
 	initLista(); // inicializa a lista para poupar tempo a testar--
 
 	// cenas:
 	char op; 
 	do {				// MENU DO DIA
-		cout << "\nLISTA LIGADA" << endl;
-		cout << "[1:listar]" << endl
-			<< "[a:limpa lista][b:init lista com 3 nos]" << endl
-			<< "[2:insere primeiro][3:insere no fim][4:insere ao meio][5:INSERE(completo)]" << endl
-			<< "[6:remove cabeca][7:remove cauda][8:remove ao meio][9:REMOVE (completo)]" << endl
-			<< "[c:lista ordenada ? (sim / nao)][d:ordena lista][e:conta nos]" << endl
-			<< "[f:ler 2 nums; trocar os nos][g:inverter a lista] [H: ler isto, por favor] [k:sizeof da struct]" << endl
-			<< "[Y:apaga ate primeiro par] [y:elimina repetido...se...]" << endl
-			<< "[0:SAIR]" << endl
-			<< "Op? ";
+		cout << "\nLISTA LIGADA\n[1:listar]\n[a:limpa lista][b:init lista com 3 nos]\n[2:insere primeiro][3:insere no fim][4:insere ao meio][5:INSERE(completo)]\n[6:remove cabeca][7:remove cauda][8:remove ao meio][9:REMOVE (completo)]\n[c:lista ordenada ? (sim / nao)][d:ordena lista][e:conta nos]\n[f:ler 2 nums; trocar os nos][g:inverter a lista] [H: ler isto, por favor] [k:sizeof da struct]\n[Y:apaga ate primeiro par] [y:elimina repetido...se...]\n[0:SAIR]\nOp? ";
 		cin >> op;
 		switch (op) {
 			case 'Y':	// apaga até primeiro par
@@ -122,18 +149,25 @@ int main() {
 				listar();
 				break;
 			case '2':	// insere primeiro
+				n = pedirNumero(n);
+				nome = pedirNome(nome);
+				inserirInicio(n, nome);
 				break;
 			case '3':	// insere no fim
+				n = pedirNumero(n);
+				nome = pedirNome(nome);
+				inserirFim(n, nome);
 				break;
 			case '4': {	// insere ao meio
-				int n = 0;
-				string nome = "Fulano";
 				n = pedirNumero(n);
 				nome = pedirNome(nome);
 				inserirMeio(n, nome);
 				break;
 			}
 			case '5' :	// INSERE(completo)
+				n = pedirNumero(n);
+				nome = pedirNome(nome);
+				inserir(n, nome);
 				break;
 			case '6':	// remove cabeca
 				break;

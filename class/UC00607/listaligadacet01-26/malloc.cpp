@@ -202,6 +202,8 @@ void trocarNos(int n1, int n2) {
 		}
 		ACTUAL = (*ACTUAL).proximo;
 	}
+	delete tempA;
+	delete tempB;
 }
 
 int main() {

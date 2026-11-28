@@ -10,7 +10,7 @@ No* SEGUNDO = NULL;
 No* TERCEIRO = NULL;
 
 // e - contar nodes
-void contar() {
+int contar() {
 	No* ACTUAL = PRIMEIRO;
 	int contador = 0;
 
@@ -19,6 +19,7 @@ void contar() {
 		ACTUAL = (*ACTUAL).proximo;
 	}
 	cout << contador << " nós." << endl;
+	return contador;
 }
 
 // 1 - listar nodes
@@ -107,7 +108,7 @@ void removerInicio(int n) {
 void removerFim(int n) {
 	No* ACTUAL = PRIMEIRO;
 
-	// vai iterando até ao ultimo.
+	// vai iterando até ao penultimo.
 	while (((*(*ACTUAL).proximo).proximo != NULL)) ACTUAL = (*ACTUAL).proximo;
 
 	if (n == (*(*ACTUAL).proximo).numero) {
@@ -121,20 +122,21 @@ void removerFim(int n) {
 void removerMeio(int n) {
 	No* ACTUAL = PRIMEIRO;
 
-	// enquanto o n for diferente do próximo, vai iterando, depois pára.
+	// enquanto o n for maior do próximo, vai iterando, depois pára.
 	while (((*ACTUAL).proximo != NULL) && (n > (*(*ACTUAL).proximo).numero)) ACTUAL = (*ACTUAL).proximo;
 
-	if (((*(*ACTUAL).proximo).proximo) && (n == (*(*ACTUAL).proximo).numero)) {
+	if (((*(*ACTUAL).proximo).proximo != NULL) && (n == (*(*ACTUAL).proximo).numero)) {
+		No* SEGUINTE = (*(*ACTUAL).proximo).proximo;
 		delete (*ACTUAL).proximo;
-		(*ACTUAL).proximo = (*(*ACTUAL).proximo).proximo;
+		(*ACTUAL).proximo = SEGUINTE;
 		cout << "\n\tBloco removido ao meio" << endl;
 	} else cout << "\n\tBloco NAO removido ao meio" << endl;
 }
 
 void remover(int n) {
 	removerInicio(n);
-	removerMeio(n);
-	removerFim(n);
+	if (contar() > 2) removerMeio(n);
+	if (contar() > 1) removerFim(n);
 }
 
 // a - limpar lista
@@ -147,7 +149,6 @@ void apagarLista() {
 	}
 	PRIMEIRO = NULL;
 	cout << "\n\tPuff!!!." << endl;
-	listar();
 }
 
 // função simples para pedir um nome

@@ -23,6 +23,7 @@ void contar() {
 
 // 1 - listar nodes
 void listar() {
+	cout << endl;
 	No* ACTUAL = PRIMEIRO;
 	while (ACTUAL != NULL) {
 		cout << "\t" << (*ACTUAL).numero << " " << (*ACTUAL).nome << endl;
@@ -30,7 +31,7 @@ void listar() {
 	}
 }
 
-// b - init lista com 3 nodes
+// b - Inicialização da lista com 3 nodes
 void initLista() {
 	PRIMEIRO = new No{ 10, "Ana", NULL };
 	SEGUNDO = new No{ 20, "Bruno", NULL };
@@ -44,13 +45,14 @@ void initLista() {
 // 2 - Inserir novo no início
 void inserirInicio(int n, string nome) {
 	No* NOVO = new No{ n, nome, NULL };
+
+	// se novo for menor que o primeiro, insere.
 	if ((*NOVO).numero < (*PRIMEIRO).numero) {
 		No* ACTUAL = PRIMEIRO;
 		PRIMEIRO = NOVO;
 		(*PRIMEIRO).proximo = ACTUAL;
 		cout << "\n\tBloco inserido no inicio." << endl;
 	} else cout << "\n\tBloco NAO inserido no inicio." << endl;
-	listar();
 }
 
 // 3 - Inserir novo no fim
@@ -61,11 +63,11 @@ void inserirFim(int n, string nome) {
 	// vai iterando até ao ultimo.
 	while (((*ACTUAL).proximo != NULL)) ACTUAL = (*ACTUAL).proximo;
 
+	// se novo for maior que o ultimo, insere novo.
 	if ((*NOVO).numero > (*ACTUAL).numero) {
 		(*ACTUAL).proximo = NOVO;
 		cout << "\n\tBloco inserido no fim." << endl;
 	} else cout << "\n\tBloco NAO inserido no fim." << endl;
-	listar();
 }
 
 // 4 - Inserir novo ao meio sem deixar inserir na cabeça e na cauda.
@@ -76,13 +78,12 @@ void inserirMeio(int n, string nome) {
 	// enquanto o novo for maior que o próximo, vai iterando, depois pára.
 	while (((*ACTUAL).proximo != NULL) && ((*NOVO).numero > (*(*ACTUAL).proximo).numero)) ACTUAL = (*ACTUAL).proximo;
 
-	// se o actual não for o último e o novo for maior que o actual, insere novo e lista.
+	// se o actual não for o último e o novo for maior que o actual, insere novo.
 	if (((*ACTUAL).proximo != NULL) && ((*NOVO).numero > (*ACTUAL).numero)) {
 		(*NOVO).proximo = (*ACTUAL).proximo;
 		(*ACTUAL).proximo = NOVO;
-		cout << "\n\tBloco inserido no meio." << endl;
-	} else cout << "\n\tBloco NAO inserido no meio." << endl;
-	listar();
+		cout << "\n\tBloco inserido ao meio." << endl;
+	} else cout << "\n\tBloco NAO inserido ao meio." << endl;
 }
 
 // 5 - Inserir novo
@@ -90,6 +91,50 @@ void inserir(int n, string nome) {
 	inserirInicio(n, nome);
 	inserirMeio(n, nome);
 	inserirFim(n, nome);
+}
+
+// 6 - remove cabeça 
+void removerInicio(int n) {
+	if (n == (*PRIMEIRO).numero) {
+		No* ACTUAL = PRIMEIRO;
+		PRIMEIRO = (*PRIMEIRO).proximo;
+		delete ACTUAL;
+		cout << "\n\tBloco removido no inicio" << endl;
+	} else cout << "\n\tBloco NAO removido no inicio" << endl;
+}
+
+// 7 - remove fim
+void removerFim(int n) {
+	No* ACTUAL = PRIMEIRO;
+
+	// vai iterando até ao ultimo.
+	while (((*(*ACTUAL).proximo).proximo != NULL)) ACTUAL = (*ACTUAL).proximo;
+
+	if (n == (*(*ACTUAL).proximo).numero) {
+		(*ACTUAL).proximo = NULL;
+		delete (*ACTUAL).proximo;
+		cout << "\n\tBloco removido no fim" << endl;
+	} else cout << "\n\tBloco NAO removido no fim" << endl;
+}
+
+// 8 - remove ao meio, sem deixar remover no inicio ou no fim.
+void removerMeio(int n) {
+	No* ACTUAL = PRIMEIRO;
+
+	// enquanto o n for diferente do próximo, vai iterando, depois pára.
+	while (((*ACTUAL).proximo != NULL) && (n > (*(*ACTUAL).proximo).numero)) ACTUAL = (*ACTUAL).proximo;
+
+	if (((*(*ACTUAL).proximo).proximo) && (n == (*(*ACTUAL).proximo).numero)) {
+		delete (*ACTUAL).proximo;
+		(*ACTUAL).proximo = (*(*ACTUAL).proximo).proximo;
+		cout << "\n\tBloco removido ao meio" << endl;
+	} else cout << "\n\tBloco NAO removido ao meio" << endl;
+}
+
+void remover(int n) {
+	removerInicio(n);
+	removerMeio(n);
+	removerFim(n);
 }
 
 // a - limpar lista
@@ -127,7 +172,6 @@ void calcMem() {
 		totalMem += sizeof(No);
 		ACTUAL = (*ACTUAL).proximo;
 	}
-
 	cout << "\n\tTamanho em memoria: " << totalMem << " bytes." << endl;
 }
 
@@ -152,30 +196,46 @@ int main() {
 				n = pedirNumero(n);
 				nome = pedirNome(nome);
 				inserirInicio(n, nome);
+				listar();
 				break;
 			case '3':	// insere no fim
 				n = pedirNumero(n);
 				nome = pedirNome(nome);
 				inserirFim(n, nome);
+				listar();
 				break;
 			case '4': {	// insere ao meio
 				n = pedirNumero(n);
 				nome = pedirNome(nome);
 				inserirMeio(n, nome);
+				listar();
 				break;
 			}
 			case '5' :	// INSERE(completo)
 				n = pedirNumero(n);
 				nome = pedirNome(nome);
 				inserir(n, nome);
+				listar();
 				break;
 			case '6':	// remove cabeca
+				n = pedirNumero(n);
+				removerInicio(n);
+				listar();
 				break;
 			case '7':	// remove cauda
+				n = pedirNumero(n);
+				removerFim(n);
+				listar();
 				break;
 			case '8':	// remove ao meio
+				n = pedirNumero(n);
+				removerMeio(n);
+				listar();
 				break;
 			case '9':	// REMOVE (completo)
+				n = pedirNumero(n);
+				remover(n);
+				listar();
 				break;
 			case 'A':
 			case 'a':	// limpar lista

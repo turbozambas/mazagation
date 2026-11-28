@@ -181,7 +181,7 @@ void calcMem() {
 void trocarNos(int n1, int n2) {
 	No* ACTUAL = PRIMEIRO;
 	No* tempA =  new No{ n1, "Fulano", NULL };
-	No* tempB =  new No{ n2, "Cicrano", NULL };
+	No* tempB =  new No{ n2, "Sicrano", NULL };
 	
 	// primeira iteração para guardar dados
 	while (ACTUAL != NULL) {

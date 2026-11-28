@@ -95,6 +95,7 @@ void inserir(int n, string nome) {
 
 // 6 - remove cabeça 
 void removerInicio(int n) {
+	// se numero inserido for igual ao primeiro, apaga.
 	if (n == (*PRIMEIRO).numero) {
 		No* ACTUAL = PRIMEIRO;
 		PRIMEIRO = (*PRIMEIRO).proximo;
@@ -110,6 +111,7 @@ void removerFim(int n) {
 	// vai iterando até ao penultimo.
 	while (((*(*ACTUAL).proximo).proximo != NULL)) ACTUAL = (*ACTUAL).proximo;
 
+	// se numero inserido for igual ao proximo, apaga o proximo.
 	if (n == (*(*ACTUAL).proximo).numero) {
 		delete (*ACTUAL).proximo;
 		(*ACTUAL).proximo = NULL;
@@ -124,6 +126,7 @@ void removerMeio(int n) {
 	// enquanto o n for maior do próximo, vai iterando, depois pára.
 	while (((*ACTUAL).proximo != NULL) && (n > (*(*ACTUAL).proximo).numero)) ACTUAL = (*ACTUAL).proximo;
 
+	// se o proximo nao for o ultimo, e numero inserido for igual ao proximo, apaga o proximo.
 	if (((*(*ACTUAL).proximo).proximo != NULL) && (n == (*(*ACTUAL).proximo).numero)) {
 		No* SEGUINTE = (*(*ACTUAL).proximo).proximo;
 		delete (*ACTUAL).proximo;
@@ -173,6 +176,32 @@ void calcMem() {
 		ACTUAL = (*ACTUAL).proximo;
 	}
 	cout << "\n\tTamanho em memoria: " << totalMem << " bytes." << endl;
+}
+
+void trocarNos(int n1, int n2) {
+	No* ACTUAL = PRIMEIRO;
+	No* tempA =  new No{ n1, "Fulano", NULL };
+	No* tempB =  new No{ n2, "Cicrano", NULL };
+	
+	// primeira iteração para guardar dados
+	while (ACTUAL != NULL) {
+		if (n1 == (*ACTUAL).numero) (*tempA).nome = (*ACTUAL).nome;
+		else if (n2 == (*ACTUAL).numero) (*tempB).nome = (*ACTUAL).nome;
+		ACTUAL = (*ACTUAL).proximo;
+	}
+
+	// segunda iteração para substituir dados
+	ACTUAL = PRIMEIRO;
+	while (ACTUAL != NULL) {
+		if (n1 == (*ACTUAL).numero) {
+			(*ACTUAL).numero = (*tempB).numero;
+			(*ACTUAL).nome = (*tempB).nome;
+		} else if (n2 == (*ACTUAL).numero) {
+			(*ACTUAL).numero = (*tempA).numero;
+			(*ACTUAL).nome = (*tempA).nome;
+		}
+		ACTUAL = (*ACTUAL).proximo;
+	}
 }
 
 int main() {
@@ -256,7 +285,12 @@ int main() {
 				contar();
 				break;
 			case 'F':
-			case 'f':	// ler dois números
+			case 'f':	// ler dois números; trocar os nodes
+				int n1, n2;
+				n1 = pedirNumero(n);
+				n2 = pedirNumero(n);
+				trocarNos(n1,n2);
+				listar();
 				break;
 			case 'G':
 			case 'g':	// inverter a lista

@@ -220,6 +220,8 @@ void inverter() {
 		ACTUAL = SEGUINTE;
 	}
 	PRIMEIRO = ANTERIOR;
+	delete ANTERIOR;
+	delete SEGUINTE;
 }
 
 int main() {
